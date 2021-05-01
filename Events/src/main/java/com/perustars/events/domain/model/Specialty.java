@@ -16,5 +16,7 @@ public class Specialty {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE},
     mappedBy = "specialties")
     private List<Hobbyist> hobbyists;
+
+    //Getters and Setters
 }
 

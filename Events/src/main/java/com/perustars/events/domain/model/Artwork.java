@@ -3,6 +3,7 @@ package com.perustars.events.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "artworks")
@@ -28,6 +29,9 @@ public class Artwork {
     @JsonIgnore
     private Artist artist;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE},
+            mappedBy = "favoriteArtworks")
+    private List<Hobbyist> hobbyists;
 
-
+    //Getters and Setters
 }

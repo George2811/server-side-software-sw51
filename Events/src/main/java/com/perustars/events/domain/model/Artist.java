@@ -1,5 +1,7 @@
 package com.perustars.events.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,12 +19,14 @@ public class Artist extends Person{
     @Column(updatable = true,nullable = false, length = 100)
     private String phrase;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "specialty_id", nullable = false)
+    @JsonIgnore
     private Specialty specialtyArt;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE},
             mappedBy = "artists")
     private List<Hobbyist> hobbyists;
+
     //Getters and Setters
-
-
 }

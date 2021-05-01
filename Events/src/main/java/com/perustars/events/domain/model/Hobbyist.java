@@ -22,4 +22,17 @@ public class Hobbyist extends Person{
             inverseJoinColumns = {@JoinColumn(name = "artist_id")})
     private List<Artist> artists;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "favorite_artworks",
+            joinColumns = {@JoinColumn(name = "hobbyist_id")},
+            inverseJoinColumns = {@JoinColumn(name = "artwork_id")})
+    private List<Artwork> favoriteArtworks;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "booking",
+            joinColumns = {@JoinColumn(name = "hobbyist_id")},
+            inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    private List<Event> events;
+
+    //Getters and Setters
 }

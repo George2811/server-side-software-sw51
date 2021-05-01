@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @MappedSuperclass
-public class Person implements Serializable {
+public abstract class Person implements Serializable {
     @NotBlank
     @Size(max = 30)
     private String firstName;

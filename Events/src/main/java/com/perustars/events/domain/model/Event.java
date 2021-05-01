@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -35,4 +36,9 @@ public class Event {
     @JsonIgnore
     private Artist artist;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE},
+            mappedBy = "events")
+    private List<Hobbyist> hobbyists;
+
+    //Getters and Setters
 }
