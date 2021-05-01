@@ -1,6 +1,7 @@
 package com.perustars.events.domain.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "artists")
@@ -16,9 +17,11 @@ public class Artist extends Person{
     @Column(updatable = true,nullable = false, length = 100)
     private String phrase;
 
-    @Column(updatable = true,nullable = false)
     private Specialty specialtyArt;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE},
+            mappedBy = "artists")
+    private List<Hobbyist> hobbyists;
     //Getters and Setters
 
 
