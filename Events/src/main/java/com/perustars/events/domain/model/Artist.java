@@ -3,6 +3,7 @@ package com.perustars.events.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -28,5 +29,14 @@ public class Artist extends Person{
             mappedBy = "artists")
     private List<Hobbyist> hobbyists;
 
-    //Getters and Setters
+    public Artist(){
+    }
+    public Artist(@NotBlank String firstName, @NotBlank String lastName, String brandName, String description, String phrase, Specialty specialtyArt) {
+        super(firstName, lastName);
+        this.brandName = brandName;
+        this.description = description;
+        this.phrase = phrase;
+        this.specialtyArt = specialtyArt;
+    }
+//Getters and Setters
 }

@@ -14,5 +14,12 @@ public abstract class Person implements Serializable {
     @Size(max = 30)
     private String lastName;
 
-    //Getters and Setters
+    public Person() {
+    }
+
+    public Person(@NotBlank String firstName, @NotBlank String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+//Getters and Setters
 }

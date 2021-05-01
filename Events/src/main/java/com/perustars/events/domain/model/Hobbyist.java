@@ -1,6 +1,7 @@
 package com.perustars.events.domain.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -34,5 +35,11 @@ public class Hobbyist extends Person{
             inverseJoinColumns = {@JoinColumn(name = "event_id")})
     private List<Event> events;
 
-    //Getters and Setters
+    public Hobbyist(){
+
+    }
+    public Hobbyist(@NotBlank String firstName, @NotBlank String lastName) {
+        super(firstName, lastName);
+    }
+//Getters and Setters
 }
