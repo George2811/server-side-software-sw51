@@ -21,5 +21,23 @@ public abstract class Person implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-//Getters and Setters
+
+    //Getters and Setters
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public Person setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Person setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
 }

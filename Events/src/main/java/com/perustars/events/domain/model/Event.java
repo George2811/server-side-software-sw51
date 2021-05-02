@@ -58,4 +58,76 @@ public class Event {
     }
 
     //Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public Event setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Event setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Event setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Calendar getDateStart() {
+        return dateStart;
+    }
+
+    public Event setDateStart(Calendar dateStart) {
+        this.dateStart = dateStart;
+        return this;
+    }
+
+    public Calendar getDateEnd() {
+        return dateEnd;
+    }
+
+    public Event setDateEnd(Calendar dateEnd) {
+        this.dateEnd = dateEnd;
+        return this;
+    }
+
+    public TypeOfEvent getType() {
+        return type;
+    }
+
+    public Event setType(TypeOfEvent type) {
+        this.type = type;
+        return this;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public Event setArtist(Artist artist) {
+        this.artist = artist;
+        return this;
+    }
+
+    public List<Hobbyist> getHobbyists() {
+        return hobbyists;
+    }
+
+    public Event setHobbyists(List<Hobbyist> hobbyists) {
+        this.hobbyists = hobbyists;
+        return this;
+    }
 }

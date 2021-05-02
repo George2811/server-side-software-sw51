@@ -36,10 +36,32 @@ public class Hobbyist extends Person{
     private List<Event> events;
 
     public Hobbyist(){
-
     }
     public Hobbyist(@NotBlank String firstName, @NotBlank String lastName) {
         super(firstName, lastName);
     }
-//Getters and Setters
+
+    //Getters and Setters
+    public String getId() {
+        return id;
+    }
+
+    public Hobbyist setId(String id) {
+        this.id = id;
+        return this;
+    }
+    public List<Specialty> getSpecialties() {
+        return specialties;
+    }
+    public List<Artist> getArtists() {
+        return artists;
+    }
+    public List<Artwork> getFavoriteArtworks() {
+        return favoriteArtworks;
+    }
+    public List<Event> getEvents() {
+        return events;
+    }
+
+
 }

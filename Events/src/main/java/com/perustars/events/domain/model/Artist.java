@@ -38,5 +38,54 @@ public class Artist extends Person{
         this.phrase = phrase;
         this.specialtyArt = specialtyArt;
     }
-//Getters and Setters
+
+    //Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public Artist setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public Artist setBrandName(String brandName) {
+        this.brandName = brandName;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Artist setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public String getPhrase() {
+        return phrase;
+    }
+
+    public Artist setPhrase(String phrase) {
+        this.phrase = phrase;
+        return this;
+    }
+
+    public Specialty getSpecialtyArt() {
+        return specialtyArt;
+    }
+
+    public Artist setSpecialtyArt(Specialty specialtyArt) {
+        this.specialtyArt = specialtyArt;
+        return this;
+    }
+
+    public List<Hobbyist> getHobbyists() {
+        return hobbyists;
+    }
 }
