@@ -33,6 +33,10 @@ public class Event {
     private Calendar dateEnd;
 
     @NotBlank
+    @Column(nullable = false, updatable = true, scale = 2)
+    private double cost;
+
+    @NotBlank
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private TypeOfEvent type;
@@ -104,6 +108,15 @@ public class Event {
         return this;
     }
 
+    public double getCost() {
+        return cost;
+    }
+
+    public Event setCost(double cost) {
+        this.cost = cost;
+        return this;
+    }
+
     public TypeOfEvent getType() {
         return type;
     }
@@ -124,10 +137,5 @@ public class Event {
 
     public List<Hobbyist> getHobbyists() {
         return hobbyists;
-    }
-
-    public Event setHobbyists(List<Hobbyist> hobbyists) {
-        this.hobbyists = hobbyists;
-        return this;
     }
 }

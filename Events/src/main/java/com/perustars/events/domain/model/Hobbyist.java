@@ -63,5 +63,59 @@ public class Hobbyist extends Person{
         return events;
     }
 
+    public boolean isSpecialty(Specialty specialty){
+        return this.getSpecialties().contains(specialty);
+    }
+    public Hobbyist selectSpecialty(Specialty specialty){
+        if (!this.isSpecialty(specialty))
+            this.getSpecialties().add(specialty);
+        return this;
+    }
+    public Hobbyist deselectSpecialty(Specialty specialty){
+        if (this.isSpecialty(specialty))
+            this.getSpecialties().remove(specialty);
+        return this;
+    }
 
+    public boolean isFollowing(Artist artist){
+        return this.getArtists().contains(artist);
+    }
+    public Hobbyist followArtist(Artist artist){
+        if(!this.isFollowing(artist))
+            this.getArtists().add(artist);
+        return this;
+    }
+    public Hobbyist unfollowArtist(Artist artist){
+        if (this.isFollowing(artist))
+            this.getArtists().remove(artist);
+        return this;
+    }
+
+    public boolean isFavoriteArtwork(Artwork artwork){
+        return this.getFavoriteArtworks().contains(artwork);
+    }
+    public Hobbyist selectArtwork(Artwork artwork){
+        if (!this.isFavoriteArtwork(artwork))
+            this.getFavoriteArtworks().add(artwork);
+        return this;
+    }
+    public Hobbyist deselectArtwork(Artwork artwork){
+        if (this.isFavoriteArtwork(artwork))
+            this.getFavoriteArtworks().remove(artwork);
+        return this;
+    }
+
+    public boolean isBooked(Event event){
+        return this.getEvents().contains(event);
+    }
+    public Hobbyist subscribeEvent(Event event){
+        if (!this.isBooked(event))
+            this.getEvents().add(event);
+        return this;
+    }
+    public Hobbyist unsubscribeEvent(Event event){
+        if (this.isBooked(event))
+            this.getEvents().remove(event);
+        return this;
+    }
 }
