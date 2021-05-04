@@ -1,7 +1,5 @@
 package com.perustars.events.resource;
 
-import com.perustars.events.domain.model.Specialty;
-
 public class SpecialityResource {
     private Long id;
     private String name;

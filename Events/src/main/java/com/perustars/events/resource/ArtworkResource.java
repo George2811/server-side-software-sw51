@@ -1,15 +1,11 @@
 package com.perustars.events.resource;
 
-import com.perustars.events.domain.model.Artist;
-import com.perustars.events.domain.model.Artwork;
-
 public class ArtworkResource {
     private Long id;
     private String title;
     private String description;
     private double cost;
     private String linkInfo;
-    private Artist artist;
 
     public Long getId() {
         return id;
@@ -53,15 +49,6 @@ public class ArtworkResource {
 
     public ArtworkResource setLinkInfo(String linkInfo) {
         this.linkInfo = linkInfo;
-        return this;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public ArtworkResource setArtist(Artist artist) {
-        this.artist = artist;
         return this;
     }
 }

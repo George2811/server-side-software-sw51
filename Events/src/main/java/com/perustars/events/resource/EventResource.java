@@ -1,9 +1,5 @@
 package com.perustars.events.resource;
 
-import com.perustars.events.domain.model.Artist;
-import com.perustars.events.domain.model.Event;
-import com.perustars.events.domain.model.TypeOfEvent;
-
 import java.util.Calendar;
 
 public class EventResource {
@@ -13,8 +9,6 @@ public class EventResource {
     private Calendar dateStart;
     private Calendar dateEnd;
     private double cost;
-    private TypeOfEvent type;
-    private Artist artist;
 
     public Long getId() {
         return id;
@@ -67,24 +61,6 @@ public class EventResource {
 
     public EventResource setCost(double cost) {
         this.cost = cost;
-        return this;
-    }
-
-    public TypeOfEvent getType() {
-        return type;
-    }
-
-    public EventResource setType(TypeOfEvent type) {
-        this.type = type;
-        return this;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public EventResource setArtist(Artist artist) {
-        this.artist = artist;
         return this;
     }
 }
