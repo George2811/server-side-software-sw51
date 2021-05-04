@@ -11,5 +11,6 @@ public interface ArtistService {
     Artist createArtist(Artist artist);
     Artist updateArtist(Long artistId, Artist artistRequest);
     ResponseEntity<?>deleteArtist(Long artistId);
-    Page<Artist> getAllArtistsByBrandName(Pageable pageable);
+    Page<Artist> getAllArtistsByBrandName(String BrandName, Pageable pageable);
+    Page<Artist> getAllArtistByHobbyistId(Long hobbyistId, Pageable pageable);
 }
