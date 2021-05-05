@@ -15,8 +15,8 @@ public interface EventService {
     Event createEvent(Long artistId, Event event);
     Event updateEvent(Long artistId, Long eventId, Event eventRequest);
     ResponseEntity<?> deleteEvent(Long artistId, Long eventId);
-    Page<Event> getAllEventsByTitle(String title);
-    Page<Event> getAllEventsByCost(double cost);
-    Page<Event> getAllEventsByDateStart(Calendar dateStart);
-    Page<Event> getAllEventsByType(TypeOfEvent typeOfEvent);
+    Page<Event> getAllEventsByTitle(String title, Pageable pageable);
+    Page<Event> getAllEventsByCost(double cost, Pageable pageable);
+    Page<Event> getAllEventsByDateStart(Calendar dateStart, Pageable pageable);
+    Page<Event> getAllEventsByType(TypeOfEvent typeOfEvent, Pageable pageable);
 }

@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface ArtworkRepository extends JpaRepository<Artwork, Long> {
     Page<Artwork> findByArtistId(Long artistsId, Pageable pageable);
     Optional<Artwork> findByIdAndArtistId(Long id, Long artistId);
-    public Optional<Artwork> findByTitle(String title);
-    public Optional<Artwork> findByCost(double cost);
+    Page<Artwork> findByTitle(String title, Pageable pageable);
+    Page<Artwork> findByCost(double cost, Pageable pageable);
 }

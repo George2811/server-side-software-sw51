@@ -12,6 +12,6 @@ public interface ArtworkService {
     Artwork createArtwork(Long artistId, Artwork artwork);
     Artwork updateArtwork(Long artistId, Long artworkId, Artwork artworkRequest);
     ResponseEntity<?> deleteArtwork(Long artistId, Long artworkId);
-    Page<Artwork> getAllArtworksByTitle(String title);
-    Page<Artwork> getAllArtworksByCost(double cost);
+    Page<Artwork> getAllArtworksByTitle(String title, Pageable pageable);
+    Page<Artwork> getAllArtworksByCost(double cost, Pageable pageable);
 }
