@@ -24,7 +24,7 @@ public class HobbyistServiceImpl implements HobbyistService {
     private EventRepository eventRepository;
 
     @Override
-    public Page<Hobbyist> getAllHobbyist(Pageable pageable) {
+    public Page<Hobbyist> getAllHobbyists(Pageable pageable) {
         return hobbyistRepository.findAll(pageable);
     }
 
