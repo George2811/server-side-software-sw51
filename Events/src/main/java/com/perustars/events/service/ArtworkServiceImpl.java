@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ArtistworkServiceImpl implements ArtworkService {
+public class ArtworkServiceImpl implements ArtworkService {
     @Autowired
     private ArtworkRepository artworkRepository;
     @Autowired

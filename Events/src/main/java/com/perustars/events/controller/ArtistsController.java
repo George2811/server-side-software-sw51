@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,9 +34,35 @@ public class ArtistsController {
                 collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
+
     @GetMapping("/artists/{artistId}")
     public ArtistResource getArtistById(@PathVariable Long artistId){
         return convertToResource(artistService.getArtistById(artistId));
+    }
+    @PostMapping("/artists")
+    public ArtistResource createArtist(@Valid @RequestBody SaveArtistResource resource){
+        Artist artist = convertToEntity(resource);
+        return convertToResource(artistService.createArtist(artist));
+    }
+
+    @PutMapping("/artists/{artistId}")
+    public ArtistResource updateArtist(@PathVariable Long artistId, @RequestBody SaveArtistResource resource){
+        Artist artist = convertToEntity(resource);
+        return convertToResource(artistService.updateArtist(artistId,artist));
+    }
+
+    @DeleteMapping("/artists/{artistId}")
+    public ResponseEntity<?> deleteArtist(@PathVariable Long artistId){
+        return artistService.deleteArtist(artistId);
+    }
+
+    @GetMapping("/artists/{artistBrandName}")
+    public Page<ArtistResource> getAllArtistByBrandName(@PathVariable String artistBrandName, Pageable pageable){
+        Page<Artist> artistPage = artistService.getAllArtistsByBrandName(artistBrandName, pageable);
+        List<ArtistResource> resources = artistPage.getContent().
+                stream().map(this::convertToResource).
+                collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
     }
 
     private Artist convertToEntity(SaveArtistResource resource){

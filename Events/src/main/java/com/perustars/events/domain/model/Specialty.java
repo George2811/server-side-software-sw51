@@ -47,10 +47,5 @@ public class Specialty implements Serializable {
     public List<Hobbyist> getHobbyists() {
         return hobbyists;
     }
-
-    public Specialty setHobbyists(List<Hobbyist> hobbyists) {
-        this.hobbyists = hobbyists;
-        return this;
-    }
 }
 
