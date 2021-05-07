@@ -1,13 +1,7 @@
 package com.perustars.events.service;
 
-import com.perustars.events.domain.model.Artist;
-import com.perustars.events.domain.model.Artwork;
-import com.perustars.events.domain.model.Hobbyist;
-import com.perustars.events.domain.model.Specialty;
-import com.perustars.events.domain.repository.ArtistRepository;
-import com.perustars.events.domain.repository.ArtworkRepository;
-import com.perustars.events.domain.repository.HobbyistRepository;
-import com.perustars.events.domain.repository.SpecialtyRepository;
+import com.perustars.events.domain.model.*;
+import com.perustars.events.domain.repository.*;
 import com.perustars.events.domain.service.HobbyistService;
 import com.perustars.events.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +18,8 @@ public class HobbyistServiceImpl implements HobbyistService {
     private ArtistRepository artistRepository;
     @Autowired
     private ArtworkRepository artworkRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
     @Override
     public Page<Hobbyist> getAllHobbyist(Pageable pageable) {
@@ -89,5 +85,17 @@ public class HobbyistServiceImpl implements HobbyistService {
     public Hobbyist disassociateHobbyistWithArtwork(Long hobbyistId, Long artworkId) {
         Artwork artwork = artworkRepository.findById(artworkId).orElseThrow(() -> new ResourceNotFoundException("Artwork", "Id", artworkId));
         return hobbyistRepository.findById(hobbyistId).map(hobbyist -> hobbyistRepository.save(hobbyist.deselectArtwork(artwork))).orElseThrow(() -> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));
+    }
+
+    @Override
+    public Hobbyist associateHobbyistWithEvent(Long hobbyistId, Long eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new ResourceNotFoundException("Event", "Id", eventId));
+        return hobbyistRepository.findById(hobbyistId).map(hobbyist -> hobbyistRepository.save(hobbyist.subscribeEvent(event))).orElseThrow(()-> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));
+    }
+
+    @Override
+    public Hobbyist disassociateHobbyistWithEvent(Long hobbyistId, Long eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new ResourceNotFoundException("Event", "Id", eventId));
+        return hobbyistRepository.findById(hobbyistId).map(hobbyist -> hobbyistRepository.save(hobbyist.unsubscribeEvent(event))).orElseThrow(()-> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));
     }
 }

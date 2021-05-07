@@ -21,4 +21,7 @@ public interface HobbyistService {
     Hobbyist associateHobbyistWithArtwork(Long hobbyistId, Long artworkId);
     Hobbyist disassociateHobbyistWithArtwork(Long hobbyistId, Long artworkId);
 
+    Hobbyist associateHobbyistWithEvent(Long hobbyistId, Long eventId);
+    Hobbyist disassociateHobbyistWithEvent(Long hobbyistId, Long eventId);
+
 }

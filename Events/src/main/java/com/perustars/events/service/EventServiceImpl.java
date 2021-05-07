@@ -4,20 +4,26 @@ import com.perustars.events.domain.model.Event;
 import com.perustars.events.domain.model.TypeOfEvent;
 import com.perustars.events.domain.repository.ArtistRepository;
 import com.perustars.events.domain.repository.EventRepository;
+import com.perustars.events.domain.repository.HobbyistRepository;
 import com.perustars.events.domain.service.EventService;
+import com.perustars.events.domain.service.HobbyistService;
 import com.perustars.events.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class EventServiceImpl implements EventService {
     @Autowired
     private EventRepository eventRepository;
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    private HobbyistRepository hobbyistRepository;
 
     @Override
     public Page<Event> getAllEvents(Pageable pageable) {
@@ -27,6 +33,16 @@ public class EventServiceImpl implements EventService {
     @Override
     public Page<Event> getAllEventsByArtistId(Long artistId, Pageable pageable) {
         return eventRepository.findByArtistId(artistId, pageable);
+    }
+
+    @Override
+    public Page<Event> getAllEventsByHobbyistId(Long hobbyistId, Pageable pageable) {
+        return hobbyistRepository.findById(hobbyistId)
+                .map(hobbyist -> {
+                    List<Event> events = hobbyist.getEvents();
+                    int eventCount = events.size();
+                    return new PageImpl<>(events, pageable, eventCount);
+                }).orElseThrow(() -> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));
     }
 
     @Override
