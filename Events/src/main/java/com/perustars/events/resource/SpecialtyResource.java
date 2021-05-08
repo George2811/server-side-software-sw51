@@ -1,6 +1,6 @@
 package com.perustars.events.resource;
 
-public class SpecialityResource {
+public class SpecialtyResource {
     private Long id;
     private String name;
 
@@ -8,7 +8,7 @@ public class SpecialityResource {
         return id;
     }
 
-    public SpecialityResource setId(Long id) {
+    public SpecialtyResource setId(Long id) {
         this.id = id;
         return this;
     }
@@ -17,7 +17,7 @@ public class SpecialityResource {
         return name;
     }
 
-    public SpecialityResource setName(String name) {
+    public SpecialtyResource setName(String name) {
         this.name = name;
         return this;
     }
