@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface SpecialtyService {
     Page<Specialty> getAllSpecialties(Pageable pageable);
+    Page<Specialty> getAllSpecialtiesByHobbyistId(Long hobbyistId, Pageable pageable);
     Specialty getSpecialtyById(Long specialtyId);
     Specialty getSpecialtyByName(String specialtyName);
 }

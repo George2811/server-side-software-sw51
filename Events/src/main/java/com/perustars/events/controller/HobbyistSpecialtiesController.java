@@ -1,40 +1,36 @@
 package com.perustars.events.controller;
 
-import com.perustars.events.domain.model.Hobbyist;
-import com.perustars.events.domain.service.HobbyistService;
-import com.perustars.events.resource.HobbyistResource;
+import com.perustars.events.domain.model.Artist;
+import com.perustars.events.domain.model.Specialty;
+import com.perustars.events.domain.service.SpecialtyService;
+import com.perustars.events.resource.ArtistResource;
+import com.perustars.events.resource.SpecialtyResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@RestController
-@RequestMapping("/api")
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HobbyistSpecialtiesController {
     @Autowired
     private ModelMapper mapper;
     @Autowired
-    private HobbyistService hobbyistService;
+    private SpecialtyService specialtyService;
 
-
-
-    @PostMapping("/hobbyists/{hobbyistId}/specialties/{specialtyId}")
-    public HobbyistResource associateHobbyistWithSpecialty(Long hobbyistId, Long specialtyId){
-        return convertToResource(hobbyistService.associateHobbyistWithSpecialty(hobbyistId, specialtyId));
+    @GetMapping("/hobbyists/{hobbyistId}/specialties")
+    public Page<SpecialtyResource> getAllSpecialtiesByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable) {
+        Page<Specialty> specialtyPage = specialtyService.getAllSpecialtiesByHobbyistId(hobbyistId, pageable);
+        List<SpecialtyResource> resources = specialtyPage.getContent().
+                stream().map(this::convertToResource).
+                collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
     }
-
-
-
-    @DeleteMapping("/hobbyists/{hobbyistId}/specialties/{specialtyId}")
-    public HobbyistResource disassociateHobbyistWithSpecialty(Long hobbyistId, Long specialtyId){
-        return convertToResource(hobbyistService.disassociateHobbyistWithSpecialty(hobbyistId, specialtyId));
-    }
-
-
-
-    private HobbyistResource convertToResource(Hobbyist hobbyist){
-        return mapper.map(hobbyist, HobbyistResource.class);
+    private SpecialtyResource convertToResource(Specialty hobbyist){
+        return mapper.map(hobbyist, SpecialtyResource.class);
     }
 }

@@ -50,8 +50,8 @@ public class HobbyistsController {
             @ApiResponse(responseCode = "200", description = "Hobbyist returned", content = @Content(mediaType = "application/json"))
     })
     @GetMapping("/hobbyists/{hobbyistId}")
-    public HobbyistResource getHobbyistById(Long hobbyistTd){
-        return convertToResource(hobbyistService.getHobbyistById(hobbyistTd));
+    public HobbyistResource getHobbyistById(@PathVariable Long hobbyistId){
+        return convertToResource(hobbyistService.getHobbyistById(hobbyistId));
     }
 
 

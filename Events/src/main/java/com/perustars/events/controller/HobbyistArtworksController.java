@@ -1,40 +1,45 @@
 package com.perustars.events.controller;
 
-import com.perustars.events.domain.model.Hobbyist;
+import com.perustars.events.domain.model.Artist;
+import com.perustars.events.domain.model.Artwork;
+import com.perustars.events.domain.service.ArtworkService;
 import com.perustars.events.domain.service.HobbyistService;
-import com.perustars.events.resource.HobbyistResource;
+import com.perustars.events.resource.ArtistResource;
+import com.perustars.events.resource.ArtworkResource;
+import com.perustars.events.resource.SaveArtworkResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@RestController
-@RequestMapping("/api")
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HobbyistArtworksController {
+
+    @Autowired
+    private ArtworkService artworkService;
+
     @Autowired
     private ModelMapper mapper;
-    @Autowired
-    private HobbyistService hobbyistService;
 
-
-
-    @PostMapping("/hobbyists/{hobbyistId}/artworks/{artworkId}")
-    public HobbyistResource associateHobbyistWithArtwork(Long hobbyistId, Long artworkId){
-        return convertToResource(hobbyistService.associateHobbyistWithArtwork(hobbyistId, artworkId));
+    @GetMapping("/hobbyists/{hobbyistId}/artworks")
+    public Page<ArtworkResource> getAllArtworksByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable) {
+        Page<Artwork> artworkPage = artworkService.getAllArtworksByHobbyistId(hobbyistId, pageable);
+        List<ArtworkResource> resources = artworkPage.getContent().
+                stream().map(this::convertToResource).
+                collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
     }
 
-
-
-    @DeleteMapping("/hobbyists/{hobbyistId}/artworks/{artworkId}")
-    public HobbyistResource disassociateHobbyistWithArtwork(Long hobbyistId, Long artworkId){
-        return convertToResource(hobbyistService.disassociateHobbyistWithArtwork(hobbyistId, artworkId));
+    private Artwork convertToEntity(SaveArtworkResource resource){
+        return mapper.map(resource, Artwork.class);
     }
+    private ArtworkResource convertToResource(Artwork artwork){
+        return mapper.map(artwork, ArtworkResource.class);
 
-
-
-    private HobbyistResource convertToResource(Hobbyist hobbyist){
-        return mapper.map(hobbyist, HobbyistResource.class);
     }
 }

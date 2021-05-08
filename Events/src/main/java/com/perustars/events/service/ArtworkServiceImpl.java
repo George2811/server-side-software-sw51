@@ -1,15 +1,20 @@
 package com.perustars.events.service;
 
 import com.perustars.events.domain.model.Artwork;
+import com.perustars.events.domain.model.Event;
 import com.perustars.events.domain.repository.ArtistRepository;
 import com.perustars.events.domain.repository.ArtworkRepository;
+import com.perustars.events.domain.repository.HobbyistRepository;
 import com.perustars.events.domain.service.ArtworkService;
 import com.perustars.events.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ArtworkServiceImpl implements ArtworkService {
@@ -17,6 +22,8 @@ public class ArtworkServiceImpl implements ArtworkService {
     private ArtworkRepository artworkRepository;
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    private HobbyistRepository hobbyistRepository;
 
     @Override
     public Page<Artwork> getAllArtworks(Pageable pageable) {
@@ -26,6 +33,16 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Override
     public Page<Artwork> getAllArtworksByArtistId(Long artistId, Pageable pageable) {
         return artworkRepository.findByArtistId(artistId, pageable);
+    }
+
+    @Override
+    public Page<Artwork> getAllArtworksByHobbyistId(Long hobbyistId, Pageable pageable) {
+        return hobbyistRepository.findById(hobbyistId)
+                .map(hobbyist -> {
+                    List<Artwork> artworks = hobbyist.getFavoriteArtworks();
+                    int artworkCount = artworks.size();
+                    return new PageImpl<>(artworks, pageable, artworkCount);
+                }).orElseThrow(() -> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));
     }
 
     @Override

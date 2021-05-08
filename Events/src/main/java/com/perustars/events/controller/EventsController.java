@@ -46,7 +46,6 @@ public class EventsController {
     }
 
 
-
     @Operation(summary = "Get Events", description = "Get All Events by ArtistId", tags = {"events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
@@ -58,21 +57,6 @@ public class EventsController {
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
-
-
-
-    @Operation(summary = "Get Events", description = "Get All Events by HobbyistId", tags = {"events"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
-    })
-    @GetMapping("/hobbyists/{hobbyistId}/events")
-    public Page<EventResource> getAllEventsByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable){
-        Page<Event> eventsPage = eventService.getAllEventsByHobbyistId(hobbyistId, pageable);
-        List<EventResource> resources = eventsPage.getContent().stream().map(
-                this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources, pageable, resources.size());
-    }
-
 
 
     @Operation(summary = "Get Events", description = "Get All Events by Title", tags = {"events"})
@@ -88,7 +72,6 @@ public class EventsController {
     }
 
 
-
     @Operation(summary = "Get Events", description = "Get All Events by Cost", tags = {"events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
@@ -102,7 +85,6 @@ public class EventsController {
     }
 
 
-
     @Operation(summary = "Get Events", description = "Get All Events by DateStart", tags = {"events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
@@ -114,7 +96,6 @@ public class EventsController {
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
-
 
 
     @Operation(summary = "Get Events", description = "Get All Events by Type", tags = {"events"})

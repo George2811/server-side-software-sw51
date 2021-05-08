@@ -1,36 +1,49 @@
 package com.perustars.events.controller;
 
-import com.perustars.events.domain.model.Hobbyist;
-import com.perustars.events.domain.service.HobbyistService;
-import com.perustars.events.resource.HobbyistResource;
+import com.perustars.events.domain.model.Event;
+import com.perustars.events.domain.service.EventService;
+import com.perustars.events.resource.EventResource;
+import com.perustars.events.resource.SaveEventResource;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HobbyistEventsController {
+
+    @Autowired
+    private EventService eventService;
+
     @Autowired
     private ModelMapper mapper;
-    @Autowired
-    private HobbyistService hobbyistService;
 
 
-
-    @PostMapping("/hobbyists/{hobbyistId}/events/{eventId}")
-    public HobbyistResource associateHobbyistWithEvent(Long hobbyistId, Long eventId){
-        return convertToResource(hobbyistService.associateHobbyistWithEvent(hobbyistId, eventId));
+    @Operation(summary = "Get Events", description = "Get All Events by HobbyistId", tags = {"events"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
+    })
+    @GetMapping("/hobbyists/{hobbyistId}/events")
+    public Page<EventResource> getAllEventsByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable){
+        Page<Event> eventsPage = eventService.getAllEventsByHobbyistId(hobbyistId, pageable);
+        List<EventResource> resources = eventsPage.getContent().stream().map(
+                this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
     }
 
-
-
-    @DeleteMapping("/hobbyists/{hobbyistId}/events/{eventId}")
-    public HobbyistResource disassociateHobbyistWithEvent(Long hobbyistId, Long eventId){
-        return convertToResource(hobbyistService.disassociateHobbyistWithEvent(hobbyistId, eventId));
+    private Event convertToEntity(SaveEventResource resource){
+        return mapper.map(resource, Event.class);
     }
-
-
-
-    private HobbyistResource convertToResource(Hobbyist hobbyist){
-        return mapper.map(hobbyist, HobbyistResource.class);
+    private EventResource convertToResource(Event hobbyist){
+        return mapper.map(hobbyist, EventResource.class);
     }
 }

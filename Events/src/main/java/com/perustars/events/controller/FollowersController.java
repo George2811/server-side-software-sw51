@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class HobbyistArtistsController {
+public class FollowersController {
     @Autowired
     private ModelMapper mapper;
     @Autowired
@@ -46,7 +46,6 @@ public class HobbyistArtistsController {
         return convertToResource(hobbyistService.associateHobbyistWithArtist(hobbyistId, artistId));
     }
 
-
     @Operation(summary = "Delete Hobbyist Association", description = "Disassociate a Hobbyist with an Artist", tags = {"hobbyist"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist disassociated", content = @Content(mediaType = "application/json"))
@@ -55,17 +54,6 @@ public class HobbyistArtistsController {
     public HobbyistResource disassociateHobbyistWithArtist(Long hobbyistId, Long artistId) {
         return convertToResource(hobbyistService.disassociateHobbyistWithArtist(hobbyistId, artistId));
     }
-
-
-    @GetMapping("/hobbyists/{hobbyistId}/artists")
-    public Page<ArtistResource> getAllArtistByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable) {
-        Page<Artist> artistPage = artistService.getAllArtistByHobbyistId(hobbyistId, pageable);
-        List<ArtistResource> resources = artistPage.getContent().
-                stream().map(this::convertToResource).
-                collect(Collectors.toList());
-        return new PageImpl<>(resources, pageable, resources.size());
-    }
-
 
     private Artist convertToEntity(SaveArtistResource resource) {
         return mapper.map(resource, Artist.class);
