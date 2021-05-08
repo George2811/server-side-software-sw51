@@ -1,13 +1,10 @@
 package com.perustars.events.controller;
 
 import com.perustars.events.domain.model.Event;
-import com.perustars.events.domain.model.Hobbyist;
 import com.perustars.events.domain.model.TypeOfEvent;
 import com.perustars.events.domain.service.EventService;
 import com.perustars.events.resource.EventResource;
-import com.perustars.events.resource.HobbyistResource;
 import com.perustars.events.resource.SaveEventResource;
-import com.perustars.events.resource.SaveHobbyistResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -82,9 +79,9 @@ public class EventsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
     })
-    @GetMapping("/events/{title}")
-    public Page<EventResource> getAllEventsByTitle(@PathVariable String title, Pageable pageable){
-        Page<Event> eventsPage = eventService.getAllEventsByTitle(title, pageable);
+    @GetMapping("/events/{eventTitle}")
+    public Page<EventResource> getAllEventsByTitle(@PathVariable String eventTitle, Pageable pageable){
+        Page<Event> eventsPage = eventService.getAllEventsByTitle(eventTitle, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
@@ -96,9 +93,9 @@ public class EventsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
     })
-    @GetMapping("/events/{cost}")
-    public Page<EventResource> getAllEventsByCost(@PathVariable Double cost, Pageable pageable){
-        Page<Event> eventsPage = eventService.getAllEventsByCost(cost, pageable);
+    @GetMapping("/events/{eventCost}")
+    public Page<EventResource> getAllEventsByCost(@PathVariable Double eventCost, Pageable pageable){
+        Page<Event> eventsPage = eventService.getAllEventsByCost(eventCost, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
@@ -110,9 +107,9 @@ public class EventsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
     })
-    @GetMapping("/events/{dateStart}")
-    public Page<EventResource> getAllEventsByDateStart(@PathVariable Calendar dateStart, Pageable pageable){
-        Page<Event> eventsPage = eventService.getAllEventsByDateStart(dateStart, pageable);
+    @GetMapping("/events/{eventDateStart}")
+    public Page<EventResource> getAllEventsByDateStart(@PathVariable Calendar eventDateStart, Pageable pageable){
+        Page<Event> eventsPage = eventService.getAllEventsByDateStart(eventDateStart, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
@@ -124,9 +121,9 @@ public class EventsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
     })
-    @GetMapping("/events/{typeOfEvent}")
-    public Page<EventResource> getAllEventsByType(TypeOfEvent typeOfEvent, Pageable pageable){
-        Page<Event> eventsPage = eventService.getAllEventsByType(typeOfEvent, pageable);
+    @GetMapping("/events/{eventTypeOfEvent}")
+    public Page<EventResource> getAllEventsByType(TypeOfEvent eventTypeOfEvent, Pageable pageable){
+        Page<Event> eventsPage = eventService.getAllEventsByType(eventTypeOfEvent, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
