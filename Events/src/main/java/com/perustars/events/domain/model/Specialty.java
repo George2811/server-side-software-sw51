@@ -1,11 +1,12 @@
 package com.perustars.events.domain.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "specialties")
-public class Specialty {
+public class Specialty implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,11 +46,6 @@ public class Specialty {
 
     public List<Hobbyist> getHobbyists() {
         return hobbyists;
-    }
-
-    public Specialty setHobbyists(List<Hobbyist> hobbyists) {
-        this.hobbyists = hobbyists;
-        return this;
     }
 }
 

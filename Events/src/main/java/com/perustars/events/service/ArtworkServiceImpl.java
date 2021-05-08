@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
-public class ArtistworkServiceImpl implements ArtworkService {
+@Service
+public class ArtworkServiceImpl implements ArtworkService {
     @Autowired
     private ArtworkRepository artworkRepository;
     @Autowired

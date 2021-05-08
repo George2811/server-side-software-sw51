@@ -7,6 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
     public Page<Artist> findByBrandName(String brandName, Pageable pageable);
-    public Page<Artist> findByHobbyistId(Long hobbyistId, Pageable pageable);
-
 }

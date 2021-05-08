@@ -13,10 +13,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
 
+@Service
 public class EventServiceImpl implements EventService {
     @Autowired
     private EventRepository eventRepository;

@@ -2,16 +2,24 @@ package com.perustars.events.service;
 
 import com.perustars.events.domain.model.Artist;
 import com.perustars.events.domain.repository.ArtistRepository;
+import com.perustars.events.domain.repository.HobbyistRepository;
 import com.perustars.events.domain.service.ArtistService;
 import com.perustars.events.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class ArtistServiceImpl implements ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    private HobbyistRepository hobbyistRepository;
 
     @Override
     public Page<Artist> getAllArtists(Pageable pageable) {
@@ -54,6 +62,12 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Page<Artist> getAllArtistByHobbyistId(Long hobbyistId, Pageable pageable) {
-        return artistRepository.findByHobbyistId(hobbyistId, pageable);
+        return hobbyistRepository.findById(hobbyistId)
+                .map(hobbyist -> {
+                    List<Artist> artists = hobbyist.getArtists();
+                    int artistsCount = artists.size();
+                    return new PageImpl<>(artists, pageable, artistsCount);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));
     }
 }
