@@ -29,7 +29,6 @@ public class HobbyistsController {
     private HobbyistService hobbyistService;
 
 
-
     @Operation(summary = "Get Hobbyists", description = "Get All Hobbyists by Pages", tags = {"hobbyists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Hobbyists returned", content = @Content(mediaType = "application/json"))

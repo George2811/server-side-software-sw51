@@ -42,7 +42,7 @@ public class FollowersController {
             @ApiResponse(responseCode = "200", description = "Hobbyist associated", content = @Content(mediaType = "application/json"))
     })
     @PostMapping("/hobbyists/{hobbyistId}/artists/{artistId}")
-    public HobbyistResource associateHobbyistWithArtist(Long hobbyistId, Long artistId) {
+    public HobbyistResource associateHobbyistWithArtist(@PathVariable Long hobbyistId,@PathVariable Long artistId) {
         return convertToResource(hobbyistService.associateHobbyistWithArtist(hobbyistId, artistId));
     }
 
@@ -51,7 +51,7 @@ public class FollowersController {
             @ApiResponse(responseCode = "200", description = "Hobbyist disassociated", content = @Content(mediaType = "application/json"))
     })
     @DeleteMapping("/hobbyists/{hobbyistId}/artists/{artistId}")
-    public HobbyistResource disassociateHobbyistWithArtist(Long hobbyistId, Long artistId) {
+    public HobbyistResource disassociateHobbyistWithArtist(@PathVariable Long hobbyistId,@PathVariable Long artistId) {
         return convertToResource(hobbyistService.disassociateHobbyistWithArtist(hobbyistId, artistId));
     }
 

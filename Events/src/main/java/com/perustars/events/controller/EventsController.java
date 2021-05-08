@@ -103,7 +103,7 @@ public class EventsController {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType = "application/json"))
     })
     @GetMapping("/events/{eventTypeOfEvent}")
-    public Page<EventResource> getAllEventsByType(TypeOfEvent eventTypeOfEvent, Pageable pageable){
+    public Page<EventResource> getAllEventsByType(@PathVariable TypeOfEvent eventTypeOfEvent, Pageable pageable){
         Page<Event> eventsPage = eventService.getAllEventsByType(eventTypeOfEvent, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());

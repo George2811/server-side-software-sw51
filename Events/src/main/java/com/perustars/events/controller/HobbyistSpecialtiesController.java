@@ -5,6 +5,10 @@ import com.perustars.events.domain.model.Specialty;
 import com.perustars.events.domain.service.SpecialtyService;
 import com.perustars.events.resource.ArtistResource;
 import com.perustars.events.resource.SpecialtyResource;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +26,10 @@ public class HobbyistSpecialtiesController {
     @Autowired
     private SpecialtyService specialtyService;
 
+    @Operation(summary = "Get Specialties", description = "Get All Specialties by HobbyistId", tags = {"specialties"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Specialties returned", content = @Content(mediaType = "application/json"))
+    })
     @GetMapping("/hobbyists/{hobbyistId}/specialties")
     public Page<SpecialtyResource> getAllSpecialtiesByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable) {
         Page<Specialty> specialtyPage = specialtyService.getAllSpecialtiesByHobbyistId(hobbyistId, pageable);

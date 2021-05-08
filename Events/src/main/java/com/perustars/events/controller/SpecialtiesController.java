@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,7 +51,7 @@ public class SpecialtiesController {
             @ApiResponse(responseCode = "200", description = "Specialty returned", content = @Content(mediaType = "application/json"))
     })
     @GetMapping("/specialties/{specialtyId}")
-    public SpecialtyResource getSpecialtyById(Long specialtyId){
+    public SpecialtyResource getSpecialtyById(@PathVariable Long specialtyId){
         return convertToResource(specialtyService.getSpecialtyById(specialtyId));
     }
 
@@ -61,7 +62,7 @@ public class SpecialtiesController {
             @ApiResponse(responseCode = "200", description = "Specialty returned", content = @Content(mediaType = "application/json"))
     })
     @GetMapping("/specialties/{specialtyName}")
-    public SpecialtyResource getSpecialtyByName(String specialtyName){
+    public SpecialtyResource getSpecialtyByName(@PathVariable String specialtyName){
         return convertToResource(specialtyService.getSpecialtyByName(specialtyName));
     }
 
