@@ -12,7 +12,7 @@ public class Hobbyist extends Person {
     private Long id;//maybe this attribute should be in the User Entity
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "hobbyist_specialty",
+    @JoinTable(name = "hobbyist_specialties",
             joinColumns = {@JoinColumn(name = "hobbyist_id")},
             inverseJoinColumns = {@JoinColumn(name = "specialty_id")})
     private List<Specialty> specialties;
