@@ -13,7 +13,7 @@ public class Artist extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;//maybe this attribute should be in the User Entity
 
-    @Column(updatable = true, nullable = true)
+    @Column(name = "brand_name", updatable = true, nullable = true)
     private String brandName;
     @Column(updatable = true, nullable = false, length = 255)
     private String description;

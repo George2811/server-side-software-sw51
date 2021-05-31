@@ -1,5 +1,6 @@
 package com.acme.perustars.domain.model;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -9,9 +10,11 @@ import java.io.Serializable;
 public abstract class Person implements Serializable {
     @NotBlank
     @Size(max = 30)
+    @Column(name = "first_name")
     private String firstName;
     @NotBlank
     @Size(max = 30)
+    @Column(name = "last_name")
     private String lastName;
 
     public Person() {
