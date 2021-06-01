@@ -22,12 +22,10 @@ public class FollowersController {
     private ModelMapper mapper;
     @Autowired
     private HobbyistService hobbyistService;
-    @Autowired
-    private ArtistService artistService;
 
 
-    @Operation(summary = "Post Hobbyist Association", description = "Associate a Hobbyist with an Artist", tags = {
-            "hobbyist"})
+
+    @Operation(summary = "Post Hobbyist Association", description = "Associate a Hobbyist with an Artist", tags = {"Followers"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist associated", content = @Content(mediaType =
                     "application/json"))
@@ -37,8 +35,9 @@ public class FollowersController {
         return convertToResource(hobbyistService.associateHobbyistWithArtist(hobbyistId, artistId));
     }
 
-    @Operation(summary = "Delete Hobbyist Association", description = "Disassociate a Hobbyist with an Artist", tags
-            = {"hobbyist"})
+
+
+    @Operation(summary = "Delete Hobbyist Association", description = "Disassociate a Hobbyist with an Artist", tags = {"Followers"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist disassociated", content = @Content(mediaType =
                     "application/json"))
@@ -48,13 +47,7 @@ public class FollowersController {
         return convertToResource(hobbyistService.disassociateHobbyistWithArtist(hobbyistId, artistId));
     }
 
-    private Artist convertToEntity(SaveArtistResource resource) {
-        return mapper.map(resource, Artist.class);
-    }
 
-    private ArtistResource convertToResource(Artist entity) {
-        return mapper.map(entity, ArtistResource.class);
-    }
 
     private HobbyistResource convertToResource(Hobbyist entity) {
         return mapper.map(entity, HobbyistResource.class);

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -65,7 +66,7 @@ public class ArtworkServiceImpl implements ArtworkService {
             artwork.setTitle(artworkRequest.getTitle());
             artwork.setDescription(artworkRequest.getDescription());
             artwork.setCost(artworkRequest.getCost());
-            artwork.setLinkInfo(artworkRequest.getLinkInfo());
+            artwork.setLinkInfo(String.join(",", artworkRequest.getLinkInfo()));
             return artworkRepository.save(artwork);
         }).orElseThrow(() -> new ResourceNotFoundException("Artwork", "Id", artworkId));
     }

@@ -1,11 +1,14 @@
 package com.acme.perustars.resource;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ArtworkResource {
     private Long id;
     private String title;
     private String description;
     private double cost;
-    private String linkInfo;
+    private List<String> linkInfo;
 
     public Long getId() {
         return id;
@@ -43,12 +46,12 @@ public class ArtworkResource {
         return this;
     }
 
-    public String getLinkInfo() {
+    public List<String> getLinkInfo() {
         return linkInfo;
     }
 
     public ArtworkResource setLinkInfo(String linkInfo) {
-        this.linkInfo = linkInfo;
+        this.linkInfo = Arrays.asList(linkInfo.split(","));
         return this;
     }
 }

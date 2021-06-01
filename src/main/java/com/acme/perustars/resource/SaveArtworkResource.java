@@ -4,6 +4,8 @@ import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
+import java.util.List;
 
 public class SaveArtworkResource {
     @NotBlank
@@ -16,14 +18,10 @@ public class SaveArtworkResource {
     @Size(max = 250)
     private String description;
 
-    @NotBlank
     @NotNull
-    @Size(max = 6)
     private double cost;
 
-    @NotNull
-    @Lob
-    private String linkInfo;
+    private List<String> linkInfo;
 
     public String getTitle() {
         return title;
@@ -52,12 +50,13 @@ public class SaveArtworkResource {
         return this;
     }
 
-    public String getLinkInfo() {
+    public List<String> getLinkInfo() {
         return linkInfo;
     }
 
-    public SaveArtworkResource setLinkInfo(String linkInfo) {
+    public SaveArtworkResource setLinkInfo(List<String> linkInfo) {
         this.linkInfo = linkInfo;
+        //this.linkInfo = Arrays.asList(linkInfo.split(","));
         return this;
     }
 }

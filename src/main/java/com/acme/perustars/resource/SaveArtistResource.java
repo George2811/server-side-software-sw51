@@ -1,5 +1,7 @@
 package com.acme.perustars.resource;
 
+import com.acme.perustars.domain.model.Specialty;
+
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -30,6 +32,25 @@ public class SaveArtistResource {
     @Size(max = 50)
     private String phrase;
 
+    private Specialty specialty;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public SaveArtistResource setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public SaveArtistResource setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
 
     public String getBrandName() {
         return brandName;
@@ -55,6 +76,15 @@ public class SaveArtistResource {
 
     public SaveArtistResource setPhrase(String phrase) {
         this.phrase = phrase;
+        return this;
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public SaveArtistResource setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
         return this;
     }
 }

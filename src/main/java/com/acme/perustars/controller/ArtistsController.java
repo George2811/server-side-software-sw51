@@ -1,6 +1,7 @@
 package com.acme.perustars.controller;
 
 import com.acme.perustars.domain.model.Artist;
+import com.acme.perustars.domain.model.Person;
 import com.acme.perustars.domain.service.ArtistService;
 import com.acme.perustars.resource.ArtistResource;
 import com.acme.perustars.resource.SaveArtistResource;
@@ -30,7 +31,9 @@ public class ArtistsController {
     @Autowired
     private ModelMapper mapper;
 
-    @Operation(summary = "Get Artists", description = "Get All Artists by Pages", tags = {"artists"})
+
+
+    @Operation(summary = "Get All Artists", description = "Get All Artists by Pages", tags = {"Artists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Artists returned", content = @Content(mediaType =
                     "application/json"))
@@ -44,17 +47,21 @@ public class ArtistsController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    @Operation(summary = "Get Artist", description = "Get Artist by Id", tags = {"artist"})
+
+
+    @Operation(summary = "Get Artist By Id", description = "Get Artist by Id", tags = {"Artists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artist returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/artists/{artistId}")
+    @GetMapping("/artists/id/{artistId}")
     public ArtistResource getArtistById(@PathVariable Long artistId) {
         return convertToResource(artistService.getArtistById(artistId));
     }
 
-    @Operation(summary = "Post Artist", description = "Create an Artist", tags = {"artist"})
+
+
+    @Operation(summary = "Post Artist", description = "Create an Artist", tags = {"Artists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artist created", content = @Content(mediaType =
                     "application/json"))
@@ -65,7 +72,9 @@ public class ArtistsController {
         return convertToResource(artistService.createArtist(artist));
     }
 
-    @Operation(summary = "Put Artist", description = "Update an Artist", tags = {"artist"})
+
+
+    @Operation(summary = "Put Artist", description = "Update an Artist", tags = {"Artists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artist updated", content = @Content(mediaType =
                     "application/json"))
@@ -76,7 +85,9 @@ public class ArtistsController {
         return convertToResource(artistService.updateArtist(artistId, artist));
     }
 
-    @Operation(summary = "Delete Artist", description = "Delete an Artist", tags = {"artist"})
+
+
+    @Operation(summary = "Delete Artist", description = "Delete an Artist", tags = {"Artists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artist deleted", content = @Content(mediaType =
                     "application/json"))
@@ -86,12 +97,14 @@ public class ArtistsController {
         return artistService.deleteArtist(artistId);
     }
 
-    @Operation(summary = "Get Artists", description = "Get All Artists by Brand Name per Page", tags = {"artists"})
+
+
+    @Operation(summary = "Get Artists By Brand Name", description = "Get All Artists by Brand Name per Page", tags = {"Artists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artists by brand name returned", content =
             @Content(mediaType = "application/json"))
     })
-    @GetMapping("/artists/{artistBrandName}")
+    @GetMapping("/artists/brandName/{artistBrandName}")
     public Page<ArtistResource> getAllArtistByBrandName(@PathVariable String artistBrandName, Pageable pageable) {
         Page<Artist> artistPage = artistService.getAllArtistsByBrandName(artistBrandName, pageable);
         List<ArtistResource> resources = artistPage.getContent().
@@ -99,6 +112,8 @@ public class ArtistsController {
                 collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
+
+
 
     private Artist convertToEntity(SaveArtistResource resource) {
         return mapper.map(resource, Artist.class);

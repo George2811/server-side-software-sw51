@@ -15,8 +15,8 @@ public class Specialty implements Serializable {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "specialties")
-    private List<Hobbyist> hobbyists;
+            mappedBy = "interests")
+    private List<Hobbyist> interests;
 
     public Specialty() {
     }
@@ -44,8 +44,8 @@ public class Specialty implements Serializable {
         return this;
     }
 
-    public List<Hobbyist> getHobbyists() {
-        return hobbyists;
+    public List<Hobbyist> getInterests() {
+        return interests;
     }
 }
 

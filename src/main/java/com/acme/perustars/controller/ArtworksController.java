@@ -30,7 +30,7 @@ public class ArtworksController {
     @Autowired
     private ModelMapper mapper;
 
-    @Operation(summary = "Get Artworks", description = "Get All Artworks by Pages", tags = {"artworks"})
+    @Operation(summary = "Get All Artworks", description = "Get All Artworks by Pages", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Artworks returned", content = @Content(mediaType =
                     "application/json"))
@@ -45,7 +45,9 @@ public class ArtworksController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    @Operation(summary = "Get Artworks", description = "Get All Artworks by Artist Id per Pages", tags = {"artworks"})
+
+
+    @Operation(summary = "Get All Artworks by Artist Id", description = "Get All Artworks by Artist Id per Pages", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Artworks returned", content = @Content(mediaType =
                     "application/json"))
@@ -60,7 +62,9 @@ public class ArtworksController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    @Operation(summary = "Get Artwork", description = "Get Artwork by Id and Artist Id", tags = {"artwork"})
+
+
+    @Operation(summary = "Get Artwork by Id and Artist Id", description = "Get Artwork by Id and Artist Id", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artwork returned", content = @Content(mediaType =
                     "application/json"))
@@ -70,7 +74,9 @@ public class ArtworksController {
         return convertToResource(artworkService.getArtworkByIdAndArtistId(artistId, artworkId));
     }
 
-    @Operation(summary = "Post Artwork", description = "Create an Artwork", tags = {"artwork"})
+
+
+    @Operation(summary = "Post Artwork", description = "Create an Artwork", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artwork created", content = @Content(mediaType =
                     "application/json"))
@@ -82,7 +88,9 @@ public class ArtworksController {
         return convertToResource(artworkService.createArtwork(artistId, artwork));
     }
 
-    @Operation(summary = "Put Artwork", description = "Update an Artwork", tags = {"artwork"})
+
+
+    @Operation(summary = "Put Artwork", description = "Update an Artwork", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artist updated", content = @Content(mediaType =
                     "application/json"))
@@ -94,7 +102,9 @@ public class ArtworksController {
         return convertToResource(artworkService.updateArtwork(artistId, artworkId, artwork));
     }
 
-    @Operation(summary = "Delete Artwork", description = "Delete an Artwork", tags = {"artwork"})
+
+
+    @Operation(summary = "Delete Artwork", description = "Delete an Artwork", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artwork deleted", content = @Content(mediaType =
                     "application/json"))
@@ -104,12 +114,14 @@ public class ArtworksController {
         return artworkService.deleteArtwork(artistId, artworkId);
     }
 
-    @Operation(summary = "Get Artworks", description = "Get All Artworks by Title per Pages", tags = {"artworks"})
+
+
+    @Operation(summary = "Get All Artworks by Title", description = "Get All Artworks by Title per Pages", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artworks by title returned", content =
             @Content(mediaType = "application/json"))
     })
-    @GetMapping("/artworks/{artworkTitle}")
+    @GetMapping("/artworks/title/{artworkTitle}")
     public Page<ArtworkResource> getAllArtworksByTitle(@PathVariable String artworkTitle, Pageable pageable) {
         Page<Artwork> artworkPage = artworkService.getAllArtworksByTitle(artworkTitle, pageable);
         List<ArtworkResource> resources = artworkPage.getContent().
@@ -118,12 +130,14 @@ public class ArtworksController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    @Operation(summary = "Get Artworks", description = "Get All Artworks by Cost per Pages", tags = {"artworks"})
+
+
+    @Operation(summary = "Get All Artworks by Cost", description = "Get All Artworks by Cost per Pages", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artworks by cost returned", content =
             @Content(mediaType = "application/json"))
     })
-    @GetMapping("/artworks/{artworkCost}")
+    @GetMapping("/artworks/cost/{artworkCost}")
     public Page<ArtworkResource> getAllArtworksByCost(@PathVariable double artworkCost, Pageable pageable) {
         Page<Artwork> artworkPage = artworkService.getAllArtworksByCost(artworkCost, pageable);
         List<ArtworkResource> resources = artworkPage.getContent().
@@ -131,6 +145,8 @@ public class ArtworksController {
                 collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
+
+
 
     private Artwork convertToEntity(SaveArtworkResource resource) {
         return mapper.map(resource, Artwork.class);

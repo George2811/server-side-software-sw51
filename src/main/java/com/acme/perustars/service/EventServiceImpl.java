@@ -40,7 +40,7 @@ public class EventServiceImpl implements EventService {
     public Page<Event> getAllEventsByHobbyistId(Long hobbyistId, Pageable pageable) {
         return hobbyistRepository.findById(hobbyistId)
                 .map(hobbyist -> {
-                    List<Event> events = hobbyist.getEvents();
+                    List<Event> events = hobbyist.getEventsAssistances();
                     int eventCount = events.size();
                     return new PageImpl<>(events, pageable, eventCount);
                 }).orElseThrow(() -> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));

@@ -29,7 +29,8 @@ public class SpecialtiesController {
     private SpecialtyService specialtyService;
 
 
-    @Operation(summary = "Get Specialties", description = "Get All Specialties by Pages", tags = {"specialties"})
+
+    @Operation(summary = "Get All Specialties", description = "Get All Specialties by Pages", tags = {"Specialties"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Specialties returned", content =
             @Content(mediaType = "application/json"))
@@ -44,26 +45,29 @@ public class SpecialtiesController {
     }
 
 
-    @Operation(summary = "Get Specialty", description = "Get Specialty by Id", tags = {"specialty"})
+
+    @Operation(summary = "Get Specialty by Id", description = "Get Specialty by Id", tags = {"Specialties"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Specialty returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/specialties/{specialtyId}")
+    @GetMapping("/specialties/id/{specialtyId}")
     public SpecialtyResource getSpecialtyById(@PathVariable Long specialtyId) {
         return convertToResource(specialtyService.getSpecialtyById(specialtyId));
     }
 
 
-    @Operation(summary = "Get Specialty", description = "Get Hobbyist by Name", tags = {"specialty"})
+
+    @Operation(summary = "Get Hobbyist by Name", description = "Get Hobbyist by Name", tags = {"Specialties"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Specialty returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/specialties/{specialtyName}")
+    @GetMapping("/specialties/name/{specialtyName}")
     public SpecialtyResource getSpecialtyByName(@PathVariable String specialtyName) {
         return convertToResource(specialtyService.getSpecialtyByName(specialtyName));
     }
+
 
 
     private SpecialtyResource convertToResource(Specialty hobbyist) {

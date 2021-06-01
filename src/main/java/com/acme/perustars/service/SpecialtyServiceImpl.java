@@ -29,7 +29,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public Page<Specialty> getAllSpecialtiesByHobbyistId(Long hobbyistId, Pageable pageable) {
         return hobbyistRepository.findById(hobbyistId)
                 .map(hobbyist -> {
-                    List<Specialty> specialties = hobbyist.getSpecialties();
+                    List<Specialty> specialties = hobbyist.getInterests();
                     int specialtiesCount = specialties.size();
                     return new PageImpl<>(specialties, pageable, specialtiesCount);
                 }).orElseThrow(() -> new ResourceNotFoundException("Hobbyist", "Id", hobbyistId));
@@ -45,5 +45,17 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public Specialty getSpecialtyByName(String specialtyName) {
         return specialtyRepository.findByName(specialtyName).orElseThrow(() -> new ResourceNotFoundException(
                 "Specialty", "Name", specialtyName));
+    }
+
+    @Override
+    public void InitializeSpecialties() {
+        if (specialtyRepository.findAll().size() <= 0){
+            specialtyRepository.save(new Specialty("Specialty 1"));
+            specialtyRepository.save(new Specialty("Specialty 2"));
+            specialtyRepository.save(new Specialty("Specialty 3"));
+            System.out.printf("Three specialties added");
+            return;
+        }
+        System.out.printf("There are already some specialties");
     }
 }

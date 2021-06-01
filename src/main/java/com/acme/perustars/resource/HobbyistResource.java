@@ -1,9 +1,9 @@
 package com.acme.perustars.resource;
 
 public class HobbyistResource {
+    private Long id;
     private String firstName;
     private String lastName;
-    private Long id;
 
     public Long getId() {
         return id;

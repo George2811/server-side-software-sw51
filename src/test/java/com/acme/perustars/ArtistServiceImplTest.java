@@ -40,8 +40,8 @@ public class ArtistServiceImplTest {
     public void WhenGetAllArtistsByHobbyistIdWithValidHobbyistIdThenReturnsArtists(){
         //Arrange
         Long hobbyistId = 1L;
-        Hobbyist hobbyist = new Hobbyist()
-                .setId(hobbyistId);
+//        Hobbyist hobbyist = new Hobbyist()
+//                .setId(hobbyistId);
         //Act
 
         //Assert
@@ -51,10 +51,10 @@ public class ArtistServiceImplTest {
     public void WhenGetArtistByIdWithValidArtistIdThenReturnsArtist(){
         //Arrange
         Long artistId = 1L;
-        Artist artist = new Artist()
-                .setId(artistId);
+//        Artist artist = new Artist()
+//                .setId(artistId);
 
-        when(artistRepository.findById(artistId)).thenReturn(Optional.of(artist));
+//        when(artistRepository.findById(artistId)).thenReturn(Optional.of(artist));
 
         //Act
         Artist foundArtist = artistService.getArtistById(artistId);

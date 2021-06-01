@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
-    public Page<Artist> findByBrandName(String brandName, Pageable pageable);
+    Page<Artist> findByBrandName(String brandName, Pageable pageable);
 }

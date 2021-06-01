@@ -1,5 +1,7 @@
 package com.acme.perustars.resource;
 
+import com.acme.perustars.domain.model.TypeOfEvent;
+
 import java.util.Calendar;
 
 public class EventResource {
@@ -9,6 +11,7 @@ public class EventResource {
     private Calendar dateStart;
     private Calendar dateEnd;
     private double cost;
+    private TypeOfEvent type;
 
     public Long getId() {
         return id;
@@ -61,6 +64,15 @@ public class EventResource {
 
     public EventResource setCost(double cost) {
         this.cost = cost;
+        return this;
+    }
+
+    public TypeOfEvent getType() {
+        return type;
+    }
+
+    public EventResource setType(TypeOfEvent type) {
+        this.type = type;
         return this;
     }
 }

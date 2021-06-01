@@ -9,48 +9,37 @@ import java.util.List;
 @Entity
 @Table(name = "artists")
 public class Artist extends Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;//maybe this attribute should be in the User Entity
-
-    @Column(name = "brand_name", updatable = true, nullable = true)
+    @Column(name = "brand_name")
     private String brandName;
-    @Column(updatable = true, nullable = false, length = 255)
+
+    @Column(nullable = false)
     private String description;
-    @Column(updatable = true, nullable = false, length = 100)
+
+    @Column(nullable = false, length = 100)
     private String phrase;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "specialty_id", nullable = false)
     @JsonIgnore
-    private Specialty specialtyArt;
+    private Specialty specialty;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "artists")
-    private List<Hobbyist> hobbyists;
+            mappedBy = "follows")
+    private List<Hobbyist> followers;
 
     public Artist() {
     }
 
     public Artist(@NotBlank String firstName, @NotBlank String lastName, String brandName, String description,
-                  String phrase, Specialty specialtyArt) {
+                  String phrase, Specialty specialty) {
         super(firstName, lastName);
         this.brandName = brandName;
         this.description = description;
         this.phrase = phrase;
-        this.specialtyArt = specialtyArt;
+        this.specialty = specialty;
     }
 
     //Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public Artist setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
     public String getBrandName() {
         return brandName;
     }
@@ -78,16 +67,16 @@ public class Artist extends Person {
         return this;
     }
 
-    public Specialty getSpecialtyArt() {
-        return specialtyArt;
+    public Specialty getSpecialty() {
+        return specialty;
     }
 
-    public Artist setSpecialtyArt(Specialty specialtyArt) {
-        this.specialtyArt = specialtyArt;
+    public Artist setSpecialty(Specialty specialtyArt) {
+        this.specialty = specialtyArt;
         return this;
     }
 
-    public List<Hobbyist> getHobbyists() {
-        return hobbyists;
+    public List<Hobbyist> getFollowers() {
+        return followers;
     }
 }

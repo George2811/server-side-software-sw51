@@ -1,21 +1,36 @@
 package com.acme.perustars.domain.model;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
-@MappedSuperclass
-public abstract class Person implements Serializable {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "persons")
+public class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotBlank
     @Size(max = 30)
     @Column(name = "first_name")
     private String firstName;
+
     @NotBlank
     @Size(max = 30)
     @Column(name = "last_name")
     private String lastName;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "claim_tickets", joinColumns = {@JoinColumn(name = "report_made_by_id")},
+               inverseJoinColumns = {@JoinColumn(name = "reported_person_id")})
+    private List<Person> claimTickets;  //Reports that the person makes
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "claimTickets")
+    private List<Person> reportsClaimTickets;   //Reports made to the person
 
     public Person() {
     }
@@ -26,6 +41,15 @@ public abstract class Person implements Serializable {
     }
 
     //Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public Person setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -41,6 +65,24 @@ public abstract class Person implements Serializable {
 
     public Person setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public List<Person> getClaimTickets() {
+        return claimTickets;
+    }
+
+    public Person setClaimTickets(List<Person> claimTickets) {
+        this.claimTickets = claimTickets;
+        return this;
+    }
+
+    public List<Person> getReportsClaimTickets() {
+        return reportsClaimTickets;
+    }
+
+    public Person setReportsClaimTickets(List<Person> reportsClaimTickets) {
+        this.reportsClaimTickets = reportsClaimTickets;
         return this;
     }
 }

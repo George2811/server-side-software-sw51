@@ -16,28 +16,24 @@ public class Event implements Serializable {
     private Long id;
 
     @NotBlank
-    @Column(updatable = true, nullable = false, length = 250)
+    @Column(nullable = false, length = 250)
     private String title;
 
     @NotBlank
-    @Column(updatable = true, nullable = false, length = 255)
+    @Column(nullable = false)
     private String description;
 
-    @NotBlank
-    @Column(updatable = true, nullable = false)
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar dateStart;
 
-    @NotBlank
-    @Column(updatable = true, nullable = false)
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar dateEnd;
 
-    @NotBlank
-    @Column(nullable = false, updatable = true, scale = 2)
+    @Column(nullable = false, scale = 2)
     private double cost;
 
-    @NotBlank
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private TypeOfEvent type;
@@ -48,8 +44,8 @@ public class Event implements Serializable {
     private Artist artist;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "events")
-    private List<Hobbyist> hobbyists;
+            mappedBy = "eventsAssistances")
+    private List<Hobbyist> eventAssistances;
 
     public Event() {
     }
@@ -137,7 +133,7 @@ public class Event implements Serializable {
         return this;
     }
 
-    public List<Hobbyist> getHobbyists() {
-        return hobbyists;
+    public List<Hobbyist> getEventAssistances() {
+        return eventAssistances;
     }
 }

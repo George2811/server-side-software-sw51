@@ -7,33 +7,25 @@ import java.util.List;
 @Entity
 @Table(name = "hobbyists")
 public class Hobbyist extends Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;//maybe this attribute should be in the User Entity
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "interests", joinColumns = {@JoinColumn(name = "hobbyist_id")},
+                inverseJoinColumns = {@JoinColumn(name = "specialty_id")})
+    private List<Specialty> interests;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "hobbyist_specialties",
-            joinColumns = {@JoinColumn(name = "hobbyist_id")},
-            inverseJoinColumns = {@JoinColumn(name = "specialty_id")})
-    private List<Specialty> specialties;
+    @JoinTable(name = "followers", joinColumns = {@JoinColumn(name = "hobbyist_id")},
+                inverseJoinColumns = {@JoinColumn(name = "artist_id")})
+    private List<Artist> follows;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "followers",
-            joinColumns = {@JoinColumn(name = "hobbyist_id")},
-            inverseJoinColumns = {@JoinColumn(name = "artist_id")})
-    private List<Artist> artists;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "favorite_artworks",
-            joinColumns = {@JoinColumn(name = "hobbyist_id")},
-            inverseJoinColumns = {@JoinColumn(name = "artwork_id")})
+    @JoinTable(name = "favorite_artworks", joinColumns = {@JoinColumn(name = "hobbyist_id")},
+                inverseJoinColumns = {@JoinColumn(name = "artwork_id")})
     private List<Artwork> favoriteArtworks;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "booking",
-            joinColumns = {@JoinColumn(name = "hobbyist_id")},
-            inverseJoinColumns = {@JoinColumn(name = "event_id")})
-    private List<Event> events;
+    @JoinTable(name = "event_assistances", joinColumns = {@JoinColumn(name = "hobbyist_id")},
+                inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    private List<Event> eventsAssistances;
 
     public Hobbyist() {
     }
@@ -43,60 +35,51 @@ public class Hobbyist extends Person {
     }
 
     //Getters and Setters
-    public Long getId() {
-        return id;
+    public List<Specialty> getInterests() {
+        return interests;
     }
 
-    public Hobbyist setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public List<Specialty> getSpecialties() {
-        return specialties;
-    }
-
-    public List<Artist> getArtists() {
-        return artists;
+    public List<Artist> getFollows() {
+        return follows;
     }
 
     public List<Artwork> getFavoriteArtworks() {
         return favoriteArtworks;
     }
 
-    public List<Event> getEvents() {
-        return events;
+    public List<Event> getEventsAssistances() {
+        return eventsAssistances;
     }
 
     public boolean isSpecialty(Specialty specialty) {
-        return this.getSpecialties().contains(specialty);
+        return this.getInterests().contains(specialty);
     }
 
     public Hobbyist selectSpecialty(Specialty specialty) {
         if (!this.isSpecialty(specialty))
-            this.getSpecialties().add(specialty);
+            this.getInterests().add(specialty);
         return this;
     }
 
     public Hobbyist deselectSpecialty(Specialty specialty) {
         if (this.isSpecialty(specialty))
-            this.getSpecialties().remove(specialty);
+            this.getInterests().remove(specialty);
         return this;
     }
 
     public boolean isFollowing(Artist artist) {
-        return this.getArtists().contains(artist);
+        return this.getFollows().contains(artist);
     }
 
     public Hobbyist followArtist(Artist artist) {
         if (!this.isFollowing(artist))
-            this.getArtists().add(artist);
+            this.getFollows().add(artist);
         return this;
     }
 
     public Hobbyist unfollowArtist(Artist artist) {
         if (this.isFollowing(artist))
-            this.getArtists().remove(artist);
+            this.getFollows().remove(artist);
         return this;
     }
 
@@ -117,18 +100,18 @@ public class Hobbyist extends Person {
     }
 
     public boolean isBooked(Event event) {
-        return this.getEvents().contains(event);
+        return this.getEventsAssistances().contains(event);
     }
 
     public Hobbyist subscribeEvent(Event event) {
         if (!this.isBooked(event))
-            this.getEvents().add(event);
+            this.getEventsAssistances().add(event);
         return this;
     }
 
     public Hobbyist unsubscribeEvent(Event event) {
         if (this.isBooked(event))
-            this.getEvents().remove(event);
+            this.getEventsAssistances().remove(event);
         return this;
     }
 }

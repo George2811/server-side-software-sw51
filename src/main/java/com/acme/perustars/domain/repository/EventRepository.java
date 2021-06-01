@@ -11,14 +11,9 @@ import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findByArtistId(Long artistId, Pageable pageable);
-
     Page<Event> findByTitle(String title, Pageable pageable);
-
     Optional<Event> findByIdAndArtistId(Long id, Long artistId);
-
     Page<Event> findByCost(double cost, Pageable pageable);
-
     Page<Event> findByDateStart(Calendar dateStart, Pageable pageable);
-
     Page<Event> findByType(TypeOfEvent type, Pageable pageable);
 }

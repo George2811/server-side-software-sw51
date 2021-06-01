@@ -1,12 +1,21 @@
 package com.acme.perustars.resource;
 
 public class ArtistResource {
+    private Long id;
     private String firstName;
     private String lastName;
-    private Long id;
     private String brandName;
     private String description;
     private String phrase;
+
+    public Long getId() {
+        return id;
+    }
+
+    public ArtistResource setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -23,15 +32,6 @@ public class ArtistResource {
 
     public ArtistResource setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public ArtistResource setId(Long id) {
-        this.id = id;
         return this;
     }
 

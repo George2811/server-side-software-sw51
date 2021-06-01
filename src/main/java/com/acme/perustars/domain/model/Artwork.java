@@ -1,10 +1,12 @@
 package com.acme.perustars.domain.model;
 
+import com.acme.perustars.converter.StringListConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -15,19 +17,18 @@ public class Artwork implements Serializable {
     private Long id;
 
     @NotBlank
-    @Column(nullable = false, updatable = true, length = 250)
+    @Column(nullable = false, length = 250)
     private String title;
 
     @NotBlank
-    @Column(nullable = false, updatable = true, length = 255)
+    @Column(nullable = false)
     private String description;
 
-    @NotBlank
-    @Column(nullable = false, updatable = true, scale = 2)
+    @Column(nullable = false, scale = 2)
     private double cost;
 
-    @Column(nullable = true, updatable = true)
-    private String linkInfo; // should be x3
+    @Convert(converter = StringListConverter.class)
+    private List<String> linkInfo;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "artist_id", nullable = false)
@@ -45,7 +46,7 @@ public class Artwork implements Serializable {
         this.title = title;
         this.description = description;
         this.cost = cost;
-        this.linkInfo = linkInfo;
+        this.linkInfo = Arrays.asList(linkInfo.split(","));
     }
 
     //Getters and Setters
@@ -86,12 +87,12 @@ public class Artwork implements Serializable {
         return this;
     }
 
-    public String getLinkInfo() {
+    public List<String> getLinkInfo() {
         return linkInfo;
     }
 
     public Artwork setLinkInfo(String linkInfo) {
-        this.linkInfo = linkInfo;
+        this.linkInfo = Arrays.asList(linkInfo.split(","));
         return this;
     }
 

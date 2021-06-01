@@ -31,7 +31,7 @@ public class EventsController {
     private EventService eventService;
 
 
-    @Operation(summary = "Get Events", description = "Get All Events by Pages", tags = {"events"})
+    @Operation(summary = "Get All Events", description = "Get All Events by Pages", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Events returned", content = @Content(mediaType =
                     "application/json"))
@@ -46,7 +46,8 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Get Events", description = "Get All Events by ArtistId", tags = {"events"})
+
+    @Operation(summary = "Get All Events by ArtistId", description = "Get All Events by ArtistId", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType =
                     "application/json"))
@@ -60,12 +61,13 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Get Events", description = "Get All Events by Title", tags = {"events"})
+
+    @Operation(summary = "Get All Events by Title", description = "Get All Events by Title", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/events/{eventTitle}")
+    @GetMapping("/events/title/{eventTitle}")
     public Page<EventResource> getAllEventsByTitle(@PathVariable String eventTitle, Pageable pageable) {
         Page<Event> eventsPage = eventService.getAllEventsByTitle(eventTitle, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
@@ -74,12 +76,13 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Get Events", description = "Get All Events by Cost", tags = {"events"})
+
+    @Operation(summary = "Get All Events by Cost", description = "Get All Events by Cost", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/events/{eventCost}")
+    @GetMapping("/events/cost/{eventCost}")
     public Page<EventResource> getAllEventsByCost(@PathVariable Double eventCost, Pageable pageable) {
         Page<Event> eventsPage = eventService.getAllEventsByCost(eventCost, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
@@ -88,12 +91,13 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Get Events", description = "Get All Events by DateStart", tags = {"events"})
+
+    @Operation(summary = "Get All Events by DateStart", description = "Get All Events by DateStart", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/events/{eventDateStart}")
+    @GetMapping("/events/dateStart/{eventDateStart}")
     public Page<EventResource> getAllEventsByDateStart(@PathVariable Calendar eventDateStart, Pageable pageable) {
         Page<Event> eventsPage = eventService.getAllEventsByDateStart(eventDateStart, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
@@ -102,12 +106,13 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Get Events", description = "Get All Events by Type", tags = {"events"})
+
+    @Operation(summary = "Get All Events by Type", description = "Get All Events by Type", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/events/{eventTypeOfEvent}")
+    @GetMapping("/events/type/{eventTypeOfEvent}")
     public Page<EventResource> getAllEventsByType(@PathVariable TypeOfEvent eventTypeOfEvent, Pageable pageable) {
         Page<Event> eventsPage = eventService.getAllEventsByType(eventTypeOfEvent, pageable);
         List<EventResource> resources = eventsPage.getContent().stream().map(
@@ -116,7 +121,8 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Get Event", description = "Get a Event By ArtistId", tags = {"event"})
+
+    @Operation(summary = "Get Event By ArtistId And By Id", description = "Get a Event By ArtistId", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Event returned", content = @Content(mediaType =
                     "application/json"))
@@ -128,7 +134,8 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Post Event", description = "Create a Event", tags = {"event"})
+
+    @Operation(summary = "Post Event", description = "Create a Event", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Event created", content = @Content(mediaType =
                     "application/json"))
@@ -139,7 +146,8 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Put Event", description = "Update a Event", tags = {"event"})
+
+    @Operation(summary = "Put Event", description = "Update a Event", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Event updated", content = @Content(mediaType =
                     "application/json"))
@@ -151,7 +159,8 @@ public class EventsController {
     }
 
 
-    @Operation(summary = "Delete Event", description = "Delete a Event", tags = {"event"})
+
+    @Operation(summary = "Delete Event", description = "Delete a Event", tags = {"Events"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Event deleted", content = @Content(mediaType =
                     "application/json"))
@@ -160,6 +169,7 @@ public class EventsController {
     public ResponseEntity<?> deleteEvent(@PathVariable Long artistId, @PathVariable Long eventId) {
         return eventService.deleteEvent(artistId, eventId);
     }
+
 
 
     private Event convertToEntity(SaveEventResource resource) {

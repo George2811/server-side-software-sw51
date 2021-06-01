@@ -1,8 +1,10 @@
 package com.acme.perustars.service;
 
 import com.acme.perustars.domain.model.Artist;
+import com.acme.perustars.domain.model.Specialty;
 import com.acme.perustars.domain.repository.ArtistRepository;
 import com.acme.perustars.domain.repository.HobbyistRepository;
+import com.acme.perustars.domain.repository.SpecialtyRepository;
 import com.acme.perustars.domain.service.ArtistService;
 import com.acme.perustars.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class ArtistServiceImpl implements ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
     @Autowired
+    private SpecialtyRepository specialtyRepository;
+    @Autowired
     private HobbyistRepository hobbyistRepository;
 
     @Override
@@ -34,6 +38,9 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Artist createArtist(Artist artist) {
+        if (!specialtyRepository.existsByName(artist.getSpecialty().getName()))
+            throw new ResourceNotFoundException("Specialty", "Name", artist.getSpecialty().getName());
+
         return artistRepository.save(artist);
     }
 
@@ -41,10 +48,14 @@ public class ArtistServiceImpl implements ArtistService {
     public Artist updateArtist(Long artistId, Artist artistRequest) {
         Artist artist = artistRepository.findById(artistId).orElseThrow(() -> new ResourceNotFoundException("Artist",
                 "Id", artistId));
+
+        if (!specialtyRepository.existsByName(artistRequest.getSpecialty().getName()))
+            throw new ResourceNotFoundException("Specialty", "Name", artistRequest.getSpecialty().getName());
+
         artist.setBrandName(artistRequest.getBrandName())
                 .setDescription(artistRequest.getDescription())
                 .setPhrase(artistRequest.getPhrase())
-                .setSpecialtyArt(artistRequest.getSpecialtyArt())
+                .setSpecialty(artistRequest.getSpecialty())
                 .setFirstName(artistRequest.getFirstName())
                 .setLastName(artistRequest.getLastName());
         return artistRepository.save(artist);
@@ -67,7 +78,7 @@ public class ArtistServiceImpl implements ArtistService {
     public Page<Artist> getAllArtistByHobbyistId(Long hobbyistId, Pageable pageable) {
         return hobbyistRepository.findById(hobbyistId)
                 .map(hobbyist -> {
-                    List<Artist> artists = hobbyist.getArtists();
+                    List<Artist> artists = hobbyist.getFollows();
                     int artistsCount = artists.size();
                     return new PageImpl<>(artists, pageable, artistsCount);
                 })

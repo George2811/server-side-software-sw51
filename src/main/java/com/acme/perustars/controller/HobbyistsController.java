@@ -29,7 +29,8 @@ public class HobbyistsController {
     private HobbyistService hobbyistService;
 
 
-    @Operation(summary = "Get Hobbyists", description = "Get All Hobbyists by Pages", tags = {"hobbyists"})
+
+    @Operation(summary = "Get All Hobbyists", description = "Get All Hobbyists by Pages", tags = {"Hobbyists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Hobbyists returned", content = @Content(mediaType =
                     "application/json"))
@@ -44,18 +45,20 @@ public class HobbyistsController {
     }
 
 
-    @Operation(summary = "Get Hobbyist", description = "Get Hobbyist by Id", tags = {"hobbyist"})
+
+    @Operation(summary = "Get Hobbyist by Id", description = "Get Hobbyist by Id", tags = {"Hobbyists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/hobbyists/{hobbyistId}")
+    @GetMapping("/hobbyists/id/{hobbyistId}")
     public HobbyistResource getHobbyistById(@PathVariable Long hobbyistId) {
         return convertToResource(hobbyistService.getHobbyistById(hobbyistId));
     }
 
 
-    @Operation(summary = "Post Hobbyist", description = "Create a Hobbyist", tags = {"hobbyist"})
+
+    @Operation(summary = "Post Hobbyist", description = "Create a Hobbyist", tags = {"Hobbyists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist created", content = @Content(mediaType =
                     "application/json"))
@@ -66,7 +69,8 @@ public class HobbyistsController {
     }
 
 
-    @Operation(summary = "Put Hobbyist", description = "Update a Hobbyist", tags = {"hobbyist"})
+
+    @Operation(summary = "Put Hobbyist", description = "Update a Hobbyist", tags = {"Hobbyists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist updated", content = @Content(mediaType =
                     "application/json"))
@@ -77,7 +81,8 @@ public class HobbyistsController {
     }
 
 
-    @Operation(summary = "Delete Hobbyist", description = "Delete a Hobbyist", tags = {"hobbyist"})
+
+    @Operation(summary = "Delete Hobbyist", description = "Delete a Hobbyist", tags = {"Hobbyists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist deleted", content = @Content(mediaType =
                     "application/json"))
@@ -86,6 +91,7 @@ public class HobbyistsController {
     public ResponseEntity<?> deleteHobbyist(@PathVariable Long hobbyistId) {
         return hobbyistService.deleteHobbyist(hobbyistId);
     }
+
 
 
     private Hobbyist convertToEntity(SaveHobbyistResource resource) {

@@ -1,8 +1,8 @@
 package com.acme.perustars.controller;
 
-import com.acme.perustars.domain.model.Specialty;
-import com.acme.perustars.domain.service.SpecialtyService;
-import com.acme.perustars.resource.SpecialtyResource;
+import com.acme.perustars.domain.model.Artist;
+import com.acme.perustars.domain.service.ArtistService;
+import com.acme.perustars.resource.ArtistResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,27 +18,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HobbyistSpecialtiesController {
+public class FollowsControllers {
+
     @Autowired
     private ModelMapper mapper;
     @Autowired
-    private SpecialtyService specialtyService;
+    private ArtistService artistService;
 
-    @Operation(summary = "Get Specialties", description = "Get All Specialties by HobbyistId", tags = {"specialties"})
+
+
+    @Operation(summary = "Get Artists", description = "Get All Artists by Hobbyist Id per Page", tags = {"Follows"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Specialties returned", content = @Content(mediaType =
+            @ApiResponse(responseCode = "200", description = "All Artists returned", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/hobbyists/{hobbyistId}/specialties")
-    public Page<SpecialtyResource> getAllSpecialtiesByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable) {
-        Page<Specialty> specialtyPage = specialtyService.getAllSpecialtiesByHobbyistId(hobbyistId, pageable);
-        List<SpecialtyResource> resources = specialtyPage.getContent().
+    @GetMapping("/hobbyists/{hobbyistId}/artists")
+    public Page<ArtistResource> getAllArtistByHobbyistId(@PathVariable Long hobbyistId, Pageable pageable) {
+        Page<Artist> artistPage = artistService.getAllArtistByHobbyistId(hobbyistId, pageable);
+        List<ArtistResource> resources = artistPage.getContent().
                 stream().map(this::convertToResource).
                 collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    private SpecialtyResource convertToResource(Specialty hobbyist) {
-        return mapper.map(hobbyist, SpecialtyResource.class);
+
+
+    private ArtistResource convertToResource(Artist entity) {
+        return mapper.map(entity, ArtistResource.class);
     }
 }
