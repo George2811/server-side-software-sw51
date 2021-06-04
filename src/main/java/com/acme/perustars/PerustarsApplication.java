@@ -1,5 +1,6 @@
 package com.acme.perustars;
 
+import com.acme.perustars.domain.service.ArtistService;
 import com.acme.perustars.domain.service.SpecialtyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

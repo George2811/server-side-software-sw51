@@ -3,6 +3,7 @@ package com.acme.perustars;
 import com.acme.perustars.domain.model.Artwork;
 import com.acme.perustars.domain.repository.ArtistRepository;
 import com.acme.perustars.domain.repository.ArtworkRepository;
+import com.acme.perustars.domain.repository.HobbyistRepository;
 import com.acme.perustars.domain.service.ArtistService;
 import com.acme.perustars.domain.service.ArtworkService;
 import com.acme.perustars.exception.ResourceNotFoundException;
@@ -28,6 +29,12 @@ public class ArtworkServiceImplTest {
     @MockBean
     private ArtworkRepository artworkRepository;
 
+    @MockBean
+    private ArtistRepository artistRepository;
+
+    @MockBean
+    private HobbyistRepository hobbyistRepository;
+
     @Autowired
     private ArtworkService artworkService;
 
@@ -47,7 +54,7 @@ public class ArtworkServiceImplTest {
         Long artistId =  1L;
         Artwork artwork = new Artwork()
                 .setId(artworkId);
-        when(artworkRepository.findByIdAndArtistId(artistId,artworkId)).thenReturn(Optional.ofNullable(artwork));
+        when(artworkRepository.findByIdAndArtistId(artworkId,artistId)).thenReturn(Optional.ofNullable(artwork));
         // Act
         Artwork foundArtwork = artworkService.getArtworkByIdAndArtistId(artistId, artworkId);
         // Assert
@@ -59,16 +66,15 @@ public class ArtworkServiceImplTest {
         // Arrange
         Long artworkId =  1L;
         Long artistId =  1L;
-        String template = "Resource %s not found for %s with value %s";
+        String template = "Artwork not found with Id %s and ArtistId %s";
         Artwork artwork = new Artwork()
                 .setId(artworkId);
-        when(artworkRepository.findByIdAndArtistId(artistId,artworkId)).thenReturn(Optional.empty());
-        String expectedMessage = String.format(template, "Artwork", "Id", artworkId);
+        when(artworkRepository.findByIdAndArtistId(artworkId,artistId)).thenReturn(Optional.empty());
+        String expectedMessage = String.format(template, artistId, artworkId);
         // Act
         Throwable exception = catchThrowable(()->{
             Artwork foundArtwork = artworkService.getArtworkByIdAndArtistId(artistId, artworkId);
         });
-        Artwork foundArtwork = artworkService.getArtworkByIdAndArtistId(artistId, artworkId);
         // Assert
         assertThat(exception)
                 .isInstanceOf(ResourceNotFoundException.class)

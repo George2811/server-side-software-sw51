@@ -2,12 +2,10 @@ package com.acme.perustars;
 
 import com.acme.perustars.domain.model.Artist;
 import com.acme.perustars.domain.model.Hobbyist;
-import com.acme.perustars.domain.repository.ArtistRepository;
-import com.acme.perustars.domain.repository.HobbyistRepository;
-import com.acme.perustars.domain.repository.SpecialtyRepository;
-import com.acme.perustars.domain.service.ArtistService;
+import com.acme.perustars.domain.repository.*;
+import com.acme.perustars.domain.service.HobbyistService;
 import com.acme.perustars.exception.ResourceNotFoundException;
-import com.acme.perustars.service.ArtistServiceImpl;
+import com.acme.perustars.service.HobbyistServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,64 +24,69 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class ArtistServiceImplTest {
+public class HobbyistServiceImplTest {
 
     @MockBean
-    private ArtistRepository artistRepository;
+    private HobbyistRepository hobbyistRepository;
 
     @MockBean
     private SpecialtyRepository specialtyRepository;
 
     @MockBean
-    private HobbyistRepository hobbyistRepository;
+    private ArtistRepository artistRepository;
 
+    @MockBean
+    private ArtworkRepository artworkRepository;
+
+    @MockBean
+    private EventRepository eventRepository;
 
 
     @Autowired
-    private ArtistService artistService;
+    private HobbyistService hobbyistService;
 
 
 
     @TestConfiguration
-    static class ArtistServiceImplTestConfiguration {
+    static class HobbyistServiceImplTestConfiguration {
         @Bean
-        public ArtistService artistService() {
-            return new ArtistServiceImpl();
+        public HobbyistService hobbyistService() {
+            return new HobbyistServiceImpl();
         }
     }
 
     @Test
-    @DisplayName("When Get Artists By Artist Id With Valid Id Then Returns Artist")
-    public void WhenGetArtistsByArtistIdWithValidIdThenReturnsArtist() {
+    @DisplayName("When Get Hobbyist By Hobbyist Id With Valid Id Then Returns Hobbyist")
+    public void WhenGetHobbyistByHobbyistIdWithValidIdThenReturnsHobbyist() {
         // Arrange
-        Long id = 1000L;
-        Artist artist = new Artist();
-        artist.setId(id);
-        when(artistRepository.findById(id))
-                .thenReturn(Optional.of(artist));
+        Long id = 1L;
+        Hobbyist hobbyist = new Hobbyist();
+        hobbyist.setId(id);
+        when(hobbyistRepository.findById(id))
+                .thenReturn(Optional.of(hobbyist));
 
         // Act
-        Artist foundArtist = artistService.getArtistById(id);
+        Hobbyist foundHobbyist = hobbyistService.getHobbyistById(id);
 
         // Assert
-        assertThat(foundArtist.getId()).isEqualTo(id);
+        assertThat(foundHobbyist.getId()).isEqualTo(id);
 
     }
 
     @Test
-    @DisplayName("When Get Artist By Artist Id With Invalid Id The ReturnsException")
-    public void WhenGetArtistByArtistIdWithInvalidIdTheReturnsException() {
+    @DisplayName("When Get Hobbyist By Hobbyist Id With Invalid Id The ReturnsException")
+    public void WhenGetHobbyistByHobbyistIdWithInvalidIdTheReturnsException() {
         // Arrange
         Long id = 1L;
         String template = "Resource %s not found for %s with value %s";
-        when(artistRepository.findById(id))
+        when(hobbyistRepository.findById(id))
                 .thenReturn(Optional.empty());
 
-        String expectedMessage = String.format(template, "Artist", "Id", id);
+        String expectedMessage = String.format(template, "Hobbyist", "Id", id);
 
         // Act
         Throwable exception = catchThrowable(() -> {
-            Artist artist = artistService.getArtistById(id);
+            Hobbyist hobbyist = hobbyistService.getHobbyistById(id);
         });
 
         // Assert
@@ -93,3 +96,4 @@ public class ArtistServiceImplTest {
     }
 
 }
+
