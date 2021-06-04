@@ -15,14 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
+@RequestMapping("/api")
 public class EventAssistancesController {
     @Autowired
     private EventService eventService;
@@ -31,7 +30,7 @@ public class EventAssistancesController {
     @Autowired
     private HobbyistService hobbyistService;
 
-    @Operation(summary = "Post Hobbyist Association", description = "Associate a Hobbyist with an Event", tags = {"Event Assistances"})
+    @Operation(summary = "Post Event Assistance Association", description = "Associate a Hobbyist with an Event", tags = {"Event Assistances"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist associated", content = @Content(mediaType =
                     "application/json"))
@@ -41,9 +40,7 @@ public class EventAssistancesController {
         return convertToResource(hobbyistService.associateHobbyistWithEvent(hobbyistId, eventId));
     }
 
-
-
-    @Operation(summary = "Delete Hobbyist Association", description = "Disassociate a Hobbyist with an Event", tags = {"Event Assistances"})
+    @Operation(summary = "Delete Event Assistance Association", description = "Disassociate a Hobbyist with an Event", tags = {"Event Assistances"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist disassociated", content = @Content(mediaType =
                     "application/json"))
@@ -53,9 +50,7 @@ public class EventAssistancesController {
         return convertToResource(hobbyistService.disassociateHobbyistWithEvent(hobbyistId, eventId));
     }
 
-
-
-    @Operation(summary = "Get Events", description = "Get All Events by HobbyistId", tags = {"Event Assistances"})
+    @Operation(summary = "Get All Event Assistances by Hobbyist Id", description = "Get All Event Assistances by HobbyistId", tags = {"Event Assistances"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Events returned", content = @Content(mediaType =
                     "application/json"))
@@ -67,7 +62,6 @@ public class EventAssistancesController {
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
-
 
     private HobbyistResource convertToResource(Hobbyist hobbyist) {
         return mapper.map(hobbyist, HobbyistResource.class);

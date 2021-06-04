@@ -25,7 +25,7 @@ public class FollowersController {
 
 
 
-    @Operation(summary = "Post Hobbyist Association", description = "Associate a Hobbyist with an Artist", tags = {"Followers"})
+    @Operation(summary = "Post Follower Association", description = "Associate a Hobbyist with an Artist", tags = {"Followers"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist associated", content = @Content(mediaType =
                     "application/json"))
@@ -37,7 +37,7 @@ public class FollowersController {
 
 
 
-    @Operation(summary = "Delete Hobbyist Association", description = "Disassociate a Hobbyist with an Artist", tags = {"Followers"})
+    @Operation(summary = "Delete Follower Association", description = "Disassociate a Hobbyist with an Artist", tags = {"Followers"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist disassociated", content = @Content(mediaType =
                     "application/json"))

@@ -170,8 +170,6 @@ public class EventsController {
         return eventService.deleteEvent(artistId, eventId);
     }
 
-
-
     private Event convertToEntity(SaveEventResource resource) {
         return mapper.map(resource, Event.class);
     }

@@ -45,8 +45,6 @@ public class ArtworksController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-
-
     @Operation(summary = "Get All Artworks by Artist Id", description = "Get All Artworks by Artist Id per Pages", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Artworks returned", content = @Content(mediaType =
@@ -62,8 +60,6 @@ public class ArtworksController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-
-
     @Operation(summary = "Get Artwork by Id and Artist Id", description = "Get Artwork by Id and Artist Id", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artwork returned", content = @Content(mediaType =
@@ -73,8 +69,6 @@ public class ArtworksController {
     public ArtworkResource getArtworkByIdAndArtistId(@PathVariable Long artistId, @PathVariable Long artworkId) {
         return convertToResource(artworkService.getArtworkByIdAndArtistId(artistId, artworkId));
     }
-
-
 
     @Operation(summary = "Post Artwork", description = "Create an Artwork", tags = {"Artworks"})
     @ApiResponses(value = {
@@ -88,8 +82,6 @@ public class ArtworksController {
         return convertToResource(artworkService.createArtwork(artistId, artwork));
     }
 
-
-
     @Operation(summary = "Put Artwork", description = "Update an Artwork", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artist updated", content = @Content(mediaType =
@@ -102,8 +94,6 @@ public class ArtworksController {
         return convertToResource(artworkService.updateArtwork(artistId, artworkId, artwork));
     }
 
-
-
     @Operation(summary = "Delete Artwork", description = "Delete an Artwork", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artwork deleted", content = @Content(mediaType =
@@ -113,8 +103,6 @@ public class ArtworksController {
     public ResponseEntity<?> deleteArtwork(@PathVariable Long artistId, @PathVariable Long artworkId) {
         return artworkService.deleteArtwork(artistId, artworkId);
     }
-
-
 
     @Operation(summary = "Get All Artworks by Title", description = "Get All Artworks by Title per Pages", tags = {"Artworks"})
     @ApiResponses(value = {
@@ -130,8 +118,6 @@ public class ArtworksController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-
-
     @Operation(summary = "Get All Artworks by Cost", description = "Get All Artworks by Cost per Pages", tags = {"Artworks"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artworks by cost returned", content =
@@ -146,15 +132,11 @@ public class ArtworksController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-
-
     private Artwork convertToEntity(SaveArtworkResource resource) {
         return mapper.map(resource, Artwork.class);
     }
 
     private ArtworkResource convertToResource(Artwork artwork) {
         return mapper.map(artwork, ArtworkResource.class);
-
     }
-
 }

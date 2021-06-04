@@ -58,7 +58,7 @@ public class SpecialtiesController {
 
 
 
-    @Operation(summary = "Get Hobbyist by Name", description = "Get Hobbyist by Name", tags = {"Specialties"})
+    @Operation(summary = "Get Specialty by Name", description = "Get Specialty by Name", tags = {"Specialties"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Specialty returned", content = @Content(mediaType =
                     "application/json"))
