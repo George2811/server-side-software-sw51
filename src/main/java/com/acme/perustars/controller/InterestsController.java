@@ -30,7 +30,7 @@ public class InterestsController {
     @Autowired
     private SpecialtyService specialtyService;
 
-    @Operation(summary = "Post Hobbyist Association", description = "Associate a Hobbyist with an Specialty", tags = {"Interests"})
+    @Operation(summary = "Post Interest Association", description = "Associate a Hobbyist with an Specialty", tags = {"Interests"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist associated", content = @Content(mediaType =
                     "application/json"))
@@ -43,7 +43,7 @@ public class InterestsController {
 
 
 
-    @Operation(summary = "Delete Hobbyist Association", description = "Disassociate a Hobbyist with an Specialty", tags = {"Interests"})
+    @Operation(summary = "Delete Interest Association", description = "Disassociate a Hobbyist with an Specialty", tags = {"Interests"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist disassociated", content = @Content(mediaType =
                     "application/json"))
