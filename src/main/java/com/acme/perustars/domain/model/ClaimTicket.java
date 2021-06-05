@@ -7,6 +7,8 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Calendar;
 
+@Entity
+@Table(name = "claim_tickets")
 public class ClaimTicket implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
