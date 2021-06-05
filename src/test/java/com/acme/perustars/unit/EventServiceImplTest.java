@@ -1,4 +1,4 @@
-package com.acme.perustars;
+package com.acme.perustars.unit;
 
 
 import com.acme.perustars.domain.model.Artwork;
