@@ -26,7 +26,7 @@ public class ClaimTicket implements Serializable {
     private Calendar incidentDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "reported_made_by", nullable = false)
+    @JoinColumn(name = "reported_made_by_id", nullable = false)
     @JsonIgnore
     private Person reportedMadeBy;
 
