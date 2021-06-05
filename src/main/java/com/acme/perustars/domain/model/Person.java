@@ -24,13 +24,13 @@ public class Person implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "claim_tickets", joinColumns = {@JoinColumn(name = "report_made_by_id")},
                inverseJoinColumns = {@JoinColumn(name = "reported_person_id")})
-    private List<Person> claimTickets;  //Reports that the person makes
+    private List<Person> claimTickets;  //Reports that the person makes*/
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "claimTickets")
-    private List<Person> reportsClaimTickets;   //Reports made to the person
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "claimTickets")
+    private List<Person> reportsClaimTickets;   //Reports made to the person*/
 
     public Person() {
     }
@@ -67,7 +67,7 @@ public class Person implements Serializable {
         this.lastName = lastName;
         return this;
     }
-
+/*
     public List<Person> getClaimTickets() {
         return claimTickets;
     }
@@ -84,5 +84,5 @@ public class Person implements Serializable {
     public Person setReportsClaimTickets(List<Person> reportsClaimTickets) {
         this.reportsClaimTickets = reportsClaimTickets;
         return this;
-    }
+    }*/
 }
