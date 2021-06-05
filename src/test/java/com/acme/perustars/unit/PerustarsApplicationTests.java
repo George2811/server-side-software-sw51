@@ -1,4 +1,4 @@
-package com.acme.perustars;
+package com.acme.perustars.unit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

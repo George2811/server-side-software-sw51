@@ -1,4 +1,4 @@
-package com.acme.perustars;
+package com.acme.perustars.unit;
 import com.acme.perustars.domain.model.Specialty;
 import com.acme.perustars.domain.repository.SpecialtyRepository;
 import com.acme.perustars.domain.service.SpecialtyService;
