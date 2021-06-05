@@ -1,5 +1,7 @@
 package com.acme.perustars.resource;
 
+import com.acme.perustars.domain.model.Person;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,12 +11,12 @@ public class SaveClaimTicketResource {
     @NotNull
     @NotBlank
     @Size(max = 40)
-    private String claimSubject;
+    private String subject;
 
     @NotNull
     @NotBlank
     @Size(max = 250)
-    private String claimDescription;
+    private String description;
 
     @NotNull
     @NotBlank
@@ -22,27 +24,28 @@ public class SaveClaimTicketResource {
 
     @NotNull
     @NotBlank
-    private Long reportedPersonId;
+    private Person reportedPerson;
 
     @NotNull
     @NotBlank
-    private Long reportMadeById;
+    private Person reportMadeBy;
 
-    public String getClaimSubject() {
-        return claimSubject;
+
+    public String getSubject() {
+        return subject;
     }
 
-    public SaveClaimTicketResource setClaimSubject(String claimSubject) {
-        this.claimSubject = claimSubject;
+    public SaveClaimTicketResource setSubject(String subject) {
+        this.subject = subject;
         return this;
     }
 
-    public String getClaimDescription() {
-        return claimDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public SaveClaimTicketResource setClaimDescription(String claimDescription) {
-        this.claimDescription = claimDescription;
+    public SaveClaimTicketResource setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -55,21 +58,21 @@ public class SaveClaimTicketResource {
         return this;
     }
 
-    public Long getReportedPersonId() {
-        return reportedPersonId;
+    public Person getReportedPerson() {
+        return reportedPerson;
     }
 
-    public SaveClaimTicketResource setReportedPersonId(Long reportedPersonId) {
-        this.reportedPersonId = reportedPersonId;
+    public SaveClaimTicketResource setReportedPerson(Person reportedPerson) {
+        this.reportedPerson = reportedPerson;
         return this;
     }
 
-    public Long getReportMadeById() {
-        return reportMadeById;
+    public Person getReportMadeBy() {
+        return reportMadeBy;
     }
 
-    public SaveClaimTicketResource setReportMadeById(Long reportMadeById) {
-        this.reportMadeById = reportMadeById;
+    public SaveClaimTicketResource setReportMadeBy(Person reportMadeBy) {
+        this.reportMadeBy = reportMadeBy;
         return this;
     }
 }

@@ -1,14 +1,17 @@
 package com.acme.perustars.resource;
 
+import com.acme.perustars.domain.model.Person;
+
 import java.util.Calendar;
 
 public class ClaimTicketResource {
     private Long id;
-    private String claimSubject;
-    private String claimDescription;
+    private String subject;
+    private String description;
     private Calendar incidentDate;
-    private Long reportedPersonId;
-    private Long reportMadeById;
+    private Person reportedPerson;
+    private Person reportMadeBy;
+
 
     public Long getId() {
         return id;
@@ -19,21 +22,21 @@ public class ClaimTicketResource {
         return this;
     }
 
-    public String getClaimSubject() {
-        return claimSubject;
+    public String getSubject() {
+        return subject;
     }
 
-    public ClaimTicketResource setClaimSubject(String claimSubject) {
-        this.claimSubject = claimSubject;
+    public ClaimTicketResource setSubject(String subject) {
+        this.subject = subject;
         return this;
     }
 
-    public String getClaimDescription() {
-        return claimDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public ClaimTicketResource setClaimDescription(String claimDescription) {
-        this.claimDescription = claimDescription;
+    public ClaimTicketResource setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -46,21 +49,21 @@ public class ClaimTicketResource {
         return this;
     }
 
-    public Long getReportedPersonId() {
-        return reportedPersonId;
+    public Person getReportedPerson() {
+        return reportedPerson;
     }
 
-    public ClaimTicketResource setReportedPersonId(Long reportedPersonId) {
-        this.reportedPersonId = reportedPersonId;
+    public ClaimTicketResource setReportedPerson(Person reportedPerson) {
+        this.reportedPerson = reportedPerson;
         return this;
     }
 
-    public Long getReportMadeById() {
-        return reportMadeById;
+    public Person getReportMadeBy() {
+        return reportMadeBy;
     }
 
-    public ClaimTicketResource setReportMadeById(Long reportMadeById) {
-        this.reportMadeById = reportMadeById;
+    public ClaimTicketResource setReportMadeBy(Person reportMadeBy) {
+        this.reportMadeBy = reportMadeBy;
         return this;
     }
 }
