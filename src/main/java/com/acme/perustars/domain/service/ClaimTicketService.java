@@ -8,11 +8,10 @@ import org.springframework.http.ResponseEntity;
 
 public interface ClaimTicketService {
     Page<ClaimTicket> getAllClaimTickets(Pageable pageable);
-    ClaimTicket getClaimTicketsByReportedPerson(Person reportedPerson);
-    ClaimTicket getClaimTicketsByReportedMadeBy(Person reportedMadeBy);
-    ClaimTicket getClaimTicketsByIdAndReportedMadeBy(Long id, Person reportedMadeBy);
+    Page<ClaimTicket> getClaimTicketsByReportedPerson(Long personId, Pageable pageable);
+    Page<ClaimTicket> getClaimTicketsByReportedMadeBy(Long personId, Pageable pageable);
+    ClaimTicket getClaimTicketByIdAndReportedMadeBy(Long id, Long personId);
     ClaimTicket createClaimTicket(ClaimTicket claimTicket);
     ClaimTicket updateClaimTicket(Long id, ClaimTicket claimTicketRequest);
     ResponseEntity<?> deleteClaimTicket(Long id);
-
 }
