@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
+
 public interface ArtistService {
     Page<Artist> getAllArtists(Pageable pageable);
     Artist getArtistById(Long artistId);
