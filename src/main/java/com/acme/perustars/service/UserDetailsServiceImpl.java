@@ -17,6 +17,7 @@ import java.util.List;
 public class UserDetailsServiceImpl implements DefaultUserDetailsService {
     private static final String DEFAULT_USERNAME = "john.doe@gmail.com";
     private static final List<GrantedAuthority> DEFAULT_AUTHORITIES = new ArrayList<>();
+    private final UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -26,7 +27,9 @@ public class UserDetailsServiceImpl implements DefaultUserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO: Implement Repository-based User Store
         String defaultPassword = passwordEncoder.encode("password");
-        if(DEFAULT_USERNAME.equals(username)) {
+        User user = userRepository.getByUsername(username);
+
+        if(user.getUsername().isPresent()) {
             return new User(DEFAULT_USERNAME, defaultPassword, DEFAULT_AUTHORITIES);
         }
         throw new UsernameNotFoundException("User not found with username " + username);
@@ -34,13 +37,14 @@ public class UserDetailsServiceImpl implements DefaultUserDetailsService {
     }
 
     public List<User> getAll() {
-        return Arrays.asList(
-                new User("john.doe@gmail.com",
-                        passwordEncoder.encode("password"),
-                        DEFAULT_AUTHORITIES),
-                new User("jason.bourne@treatstone.gov",
-                        passwordEncoder.encode("easy-one"),
-                        DEFAULT_AUTHORITIES)
-        );
+        return userRepository.ListAllAsync();
+//        return Arrays.asList(
+//                new User("john.doe@gmail.com",
+//                        passwordEncoder.encode("password"),
+//                        DEFAULT_AUTHORITIES),
+//                new User("jason.bourne@treatstone.gov",
+//                        passwordEncoder.encode("easy-one"),
+//                        DEFAULT_AUTHORITIES)
+//        );
     }
 }
