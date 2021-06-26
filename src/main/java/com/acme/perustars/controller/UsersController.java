@@ -5,6 +5,7 @@ import com.acme.perustars.resource.UserResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,8 @@ public class UsersController {
     private DefaultUserDetailsService userDetailsService;
 
     @GetMapping
-    public List<UserResource> getAll() {
-        return userDetailsService.getAll().stream()
+    public List<UserResource> getAll(Pageable pageable) {
+        return userDetailsService.getAll(pageable).stream()
                 .map(this::convertToResource)
                 .collect(Collectors.toList());
     }
