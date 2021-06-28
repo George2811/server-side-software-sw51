@@ -62,15 +62,12 @@ public class JwtCenter {
         return (!isExpired() || ignoreExpiration());
     }
 
-    private String doGenerateToken(
-            Map<String, Object> claims,
-            String subject
-    ) {
+    private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * /*1000*/100000)) //TODO: Descomentar el otro numero
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }

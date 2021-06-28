@@ -22,7 +22,7 @@ public class UsersController {
     @Autowired
     private ModelMapper mapper;
 
-    @Qualifier("userServiceImpl")
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private DefaultUserDetailsService userDetailsService;
 
