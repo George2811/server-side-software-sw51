@@ -61,6 +61,18 @@ public class ArtistsController {
 
 
 
+    @Operation(summary = "Get Artist By User Id", description = "Get Artist by User Id", tags = {"Artists"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Artist returned", content = @Content(mediaType =
+                    "application/json"))
+    })
+    @GetMapping("/artists/userid/{userId}")
+    public ArtistResource getArtistByUserId(@PathVariable Long userId) {
+        return convertToResource(artistService.getArtistByUserId(userId));
+    }
+
+
+
     @Operation(summary = "Post Artist", description = "Create an Artist", tags = {"Artists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Artist created", content = @Content(mediaType =

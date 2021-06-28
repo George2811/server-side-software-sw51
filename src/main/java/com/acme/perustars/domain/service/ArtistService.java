@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 public interface ArtistService {
     Page<Artist> getAllArtists(Pageable pageable);
     Artist getArtistById(Long artistId);
+    Artist getArtistByUserId(Long userId);
     Artist createArtist(Artist artist);
     Artist updateArtist(Long artistId, Artist artistRequest);
     ResponseEntity<?> deleteArtist(Long artistId);

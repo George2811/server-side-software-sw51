@@ -2,6 +2,7 @@ package com.acme.perustars.domain.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +25,9 @@ public class Person implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotNull
+    @Column (name = "user_id")
+    private Long userId;
     /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "claim_tickets", joinColumns = {@JoinColumn(name = "report_made_by_id")},
                inverseJoinColumns = {@JoinColumn(name = "reported_person_id")})
@@ -65,6 +69,15 @@ public class Person implements Serializable {
 
     public Person setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public Person setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
 /*

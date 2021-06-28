@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Repository
-@Transactional(readOnly = true)
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
-}
+//@Repository
+//@Transactional(readOnly = true)
+//public interface UserRepository extends JpaRepository<User, Long> {
+    //User findByUsername(String username);
+//}

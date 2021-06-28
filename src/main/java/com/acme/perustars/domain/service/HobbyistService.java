@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 public interface HobbyistService {
     Page<Hobbyist> getAllHobbyists(Pageable pageable);
     Hobbyist getHobbyistById(Long hobbyistId);
+    Hobbyist getHobbyistByUserId(Long userId);
     Hobbyist createHobbyist(Hobbyist hobbyist);
     Hobbyist updateHobbyist(Long hobbyistId, Hobbyist hobbyistRequest);
     ResponseEntity<?> deleteHobbyist(Long hobbyistId);
@@ -19,5 +20,4 @@ public interface HobbyistService {
     Hobbyist disassociateHobbyistWithArtwork(Long hobbyistId, Long artworkId);
     Hobbyist associateHobbyistWithEvent(Long hobbyistId, Long eventId);
     Hobbyist disassociateHobbyistWithEvent(Long hobbyistId, Long eventId);
-
 }

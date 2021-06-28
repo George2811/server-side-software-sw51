@@ -58,6 +58,18 @@ public class HobbyistsController {
 
 
 
+    @Operation(summary = "Get Hobbyist by User Id", description = "Get Hobbyist by User Id", tags = {"Hobbyists"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Hobbyist returned", content = @Content(mediaType =
+                    "application/json"))
+    })
+    @GetMapping("/hobbyists/userid/{userId}")
+    public HobbyistResource getHobbyistByUserId(@PathVariable Long userId) {
+        return convertToResource(hobbyistService.getHobbyistByUserId(userId));
+    }
+
+
+
     @Operation(summary = "Post Hobbyist", description = "Create a Hobbyist", tags = {"Hobbyists"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Hobbyist created", content = @Content(mediaType =

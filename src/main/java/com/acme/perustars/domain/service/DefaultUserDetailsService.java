@@ -8,5 +8,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface DefaultUserDetailsService extends UserDetailsService {
-    Page<User> getAll(Pageable pageable);
+    List<User> getAll(Pageable pageable);
 }

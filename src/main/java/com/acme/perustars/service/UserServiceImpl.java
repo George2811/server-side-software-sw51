@@ -1,6 +1,6 @@
 package com.acme.perustars.service;
 
-import com.acme.perustars.domain.repository.UserRepository;
+//import com.acme.perustars.domain.repository.UserRepository;
 import com.acme.perustars.domain.service.DefaultUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,8 +21,8 @@ public class UserServiceImpl implements DefaultUserDetailsService {
     private static final String DEFAULT_USERNAME = "john.doe@gmail.com";
     private static final List<GrantedAuthority> DEFAULT_AUTHORITIES = new ArrayList<>();
 
-    @Autowired
-    private  UserRepository userRepository;
+    //@Autowired
+    //private  UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -32,26 +32,26 @@ public class UserServiceImpl implements DefaultUserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO: Implement Repository-based User Store
         String defaultPassword = passwordEncoder.encode("password");
-        User user = userRepository.findByUsername(username);
+        //User user = userRepository.findByUsername(username);
 
-        if(!user.getUsername().isBlank()) {
-        return new User(DEFAULT_USERNAME, defaultPassword, DEFAULT_AUTHORITIES);
-        }
-        //if(DEFAULT_USERNAME.equals(username)) {
-            //return new User(DEFAULT_USERNAME, defaultPassword, DEFAULT_AUTHORITIES);
+        //if(!user.getUsername().isBlank()) {
+        //return new User(DEFAULT_USERNAME, defaultPassword, DEFAULT_AUTHORITIES);
         //}
+        if(DEFAULT_USERNAME.equals(username)) {
+            return new User(DEFAULT_USERNAME, defaultPassword, DEFAULT_AUTHORITIES);
+        }
         throw new UsernameNotFoundException("User not found with username " + username);
     }
 
-    public Page<User> getAll(Pageable pageable) {
-        return userRepository.findAll(pageable);
-        //return Arrays.asList(
-                //new User("john.doe@gmail.com",
-                        //passwordEncoder.encode("password"),
-                        //DEFAULT_AUTHORITIES),
-                //new User("jason.bourne@treatstone.gov",
-                        //passwordEncoder.encode("easy-one"),
-                        //DEFAULT_AUTHORITIES)
-        //);
+    public List<User> getAll(Pageable pageable) {
+        //return userRepository.findAll(pageable);
+        return Arrays.asList(
+                new User("john.doe@gmail.com",
+                        passwordEncoder.encode("password"),
+                        DEFAULT_AUTHORITIES),
+                new User("jason.bourne@treatstone.gov",
+                        passwordEncoder.encode("easy-one"),
+                        DEFAULT_AUTHORITIES)
+        );
     }
 }
