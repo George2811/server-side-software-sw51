@@ -37,7 +37,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "200", description = "Users authenticated", content = @Content(mediaType =
                     "application/json"))
     })
-    @GetMapping("/sign-in")
+    @PostMapping("/sign-in")
     public ResponseEntity<?> generateAuthenticationToken(@RequestBody AuthenticationRequest request) throws Exception {
         authenticate(request.getUsername(), request.getPassword());
 
