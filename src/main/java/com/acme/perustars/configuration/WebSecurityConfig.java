@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/sign-in", "/api/users", "/api/artists", "/api/hobbyists", "/swagger-ui/**",
+                .antMatchers("/api/auth/sign-in", "/api/users", "/api/artists", "/api/hobbyists", "/api/artworks", "/api/events", "/swagger-ui/**",
                         "/perustars-api-docs/**", "/", "/ csrf", "/ v2 / api-docs", "/ swagger-resources / " +
                                 "configuration / " + "ui", "/ configuration / ui", "/ swagger-resources", "/ swagger" +
                                 "-resources / configuration / " + "security", "/ configuration / security", "/swagger" +
