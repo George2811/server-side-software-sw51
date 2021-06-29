@@ -15,9 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
@@ -52,9 +49,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/sign-in", "/api/users", "/swagger-ui/**", "/perustars-api-docs/**", "/", "/ csrf", "/ v2 / api-docs", "/ swagger-resources / configuration / " +
-                        "ui", "/ configuration / ui", "/ swagger-resources", "/ swagger-resources / configuration / " +
-                        "security", "/ configuration / security", "/swagger-ui.html", "/ webjars / **").permitAll()
+                .antMatchers("/api/auth/sign-in", "/api/users", "/api/artists", "/api/hobbyists", "/swagger-ui/**",
+                        "/perustars-api-docs/**", "/", "/ csrf", "/ v2 / api-docs", "/ swagger-resources / " +
+                                "configuration / " + "ui", "/ configuration / ui", "/ swagger-resources", "/ swagger" +
+                                "-resources / configuration / " + "security", "/ configuration / security", "/swagger" +
+                                "-ui.html", "/ webjars / **").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint).and()
