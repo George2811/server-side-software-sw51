@@ -50,10 +50,15 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     @Override
     public void InitializeSpecialties() {
         if (specialtyRepository.findAll().size() <= 0){
-            specialtyRepository.save(new Specialty("Specialty 1"));
-            specialtyRepository.save(new Specialty("Specialty 2"));
-            specialtyRepository.save(new Specialty("Specialty 3"));
-            System.out.printf("Three specialties added");
+            specialtyRepository.save(new Specialty("Pintura"));
+            specialtyRepository.save(new Specialty("Escultura"));
+            specialtyRepository.save(new Specialty("Canto"));
+            specialtyRepository.save(new Specialty("Danza"));
+            specialtyRepository.save(new Specialty("Teatro"));
+            specialtyRepository.save(new Specialty("Producción"));
+            specialtyRepository.save(new Specialty("Cine"));
+            specialtyRepository.save(new Specialty("Música"));
+            System.out.printf("Eight specialties added");
             return;
         }
         System.out.printf("There are already some specialties");

@@ -15,6 +15,9 @@ public class SaveHobbyistResource {
     @Size(max = 25)
     private String lastName;
 
+    @NotNull
+    private Long userId;
+
     public String getFirstName() {
         return firstName;
     }
@@ -30,6 +33,15 @@ public class SaveHobbyistResource {
 
     public SaveHobbyistResource setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public SaveHobbyistResource setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
 }

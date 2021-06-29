@@ -2,6 +2,7 @@ package com.acme.perustars.domain.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
@@ -24,20 +25,17 @@ public class Person implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "claim_tickets", joinColumns = {@JoinColumn(name = "report_made_by_id")},
-               inverseJoinColumns = {@JoinColumn(name = "reported_person_id")})
-    private List<Person> claimTickets;  //Reports that the person makes*/
-
-    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "claimTickets")
-    private List<Person> reportsClaimTickets;   //Reports made to the person*/
+    @NotNull
+    @Column(name = "user_id")
+    private Long userId;
 
     public Person() {
     }
 
-    public Person(@NotBlank String firstName, @NotBlank String lastName) {
+    public Person(@NotBlank String firstName, @NotBlank String lastName, Long userId) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userId = userId;
     }
 
     //Getters and Setters
@@ -67,22 +65,13 @@ public class Person implements Serializable {
         this.lastName = lastName;
         return this;
     }
-/*
-    public List<Person> getClaimTickets() {
-        return claimTickets;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public Person setClaimTickets(List<Person> claimTickets) {
-        this.claimTickets = claimTickets;
+    public Person setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
-
-    public List<Person> getReportsClaimTickets() {
-        return reportsClaimTickets;
-    }
-
-    public Person setReportsClaimTickets(List<Person> reportsClaimTickets) {
-        this.reportsClaimTickets = reportsClaimTickets;
-        return this;
-    }*/
 }

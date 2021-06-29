@@ -31,8 +31,8 @@ public class Artist extends Person {
     }
 
     public Artist(@NotBlank String firstName, @NotBlank String lastName, String brandName, String description,
-                  String phrase, Specialty specialty) {
-        super(firstName, lastName);
+                  String phrase, Specialty specialty, Long userId) {
+        super(firstName, lastName, userId);
         this.brandName = brandName;
         this.description = description;
         this.phrase = phrase;

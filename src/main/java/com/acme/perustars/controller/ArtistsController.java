@@ -42,7 +42,9 @@ public class ArtistsController {
     public Page<ArtistResource> getAllArtists(Pageable pageable) {
         Page<Artist> artistPage = artistService.getAllArtists(pageable);
         List<ArtistResource> resources = artistPage.getContent().
-                stream().map(this::convertToResource).
+                stream().map(artist -> {
+                return convertToResource(artist).setSpecialtyId(artist.getSpecialty().getId());
+        }).
                 collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
@@ -56,7 +58,21 @@ public class ArtistsController {
     })
     @GetMapping("/artists/id/{artistId}")
     public ArtistResource getArtistById(@PathVariable Long artistId) {
-        return convertToResource(artistService.getArtistById(artistId));
+        Artist artist = artistService.getArtistById(artistId);
+        return convertToResource(artist).setSpecialtyId(artist.getSpecialty().getId());
+    }
+
+
+
+    @Operation(summary = "Get Artist By UserId", description = "Get Artist by UserId", tags = {"Artists"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Artist returned", content = @Content(mediaType =
+                    "application/json"))
+    })
+    @GetMapping("/artists/userid/{userId}")
+    public ArtistResource getArtistByUserId(@PathVariable Long userId) {
+        Artist artist = artistService.getArtistByUserId(userId);
+        return convertToResource(artist).setSpecialtyId(artist.getSpecialty().getId());
     }
 
 
@@ -68,8 +84,8 @@ public class ArtistsController {
     })
     @PostMapping("/artists")
     public ArtistResource createArtist(@Valid @RequestBody SaveArtistResource resource) {
-        Artist artist = convertToEntity(resource);
-        return convertToResource(artistService.createArtist(artist));
+        Artist artist = artistService.createArtist(convertToEntity(resource));
+        return convertToResource(artist).setSpecialtyId(artist.getSpecialty().getId());
     }
 
 
@@ -81,8 +97,8 @@ public class ArtistsController {
     })
     @PutMapping("/artists/{artistId}")
     public ArtistResource updateArtist(@PathVariable Long artistId, @RequestBody SaveArtistResource resource) {
-        Artist artist = convertToEntity(resource);
-        return convertToResource(artistService.updateArtist(artistId, artist));
+        Artist artist = artistService.updateArtist(artistId, convertToEntity(resource));
+        return convertToResource(artist).setSpecialtyId(artist.getSpecialty().getId());
     }
 
 
@@ -108,7 +124,9 @@ public class ArtistsController {
     public Page<ArtistResource> getAllArtistByBrandName(@PathVariable String artistBrandName, Pageable pageable) {
         Page<Artist> artistPage = artistService.getAllArtistsByBrandName(artistBrandName, pageable);
         List<ArtistResource> resources = artistPage.getContent().
-                stream().map(this::convertToResource).
+                stream().map(artist -> {
+                    return convertToResource(artist).setSpecialtyId(artist.getSpecialty().getId());
+        }).
                 collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }

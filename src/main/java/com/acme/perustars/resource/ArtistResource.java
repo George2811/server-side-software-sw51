@@ -7,6 +7,8 @@ public class ArtistResource {
     private String brandName;
     private String description;
     private String phrase;
+    private Long userId;
+    private Long specialtyId;
 
     public Long getId() {
         return id;
@@ -59,6 +61,24 @@ public class ArtistResource {
 
     public ArtistResource setPhrase(String phrase) {
         this.phrase = phrase;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public ArtistResource setUserId(Long userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public Long getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public ArtistResource setSpecialtyId(Long specialtyId) {
+        this.specialtyId = specialtyId;
         return this;
     }
 }

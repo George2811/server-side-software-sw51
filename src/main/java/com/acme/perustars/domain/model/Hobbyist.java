@@ -30,8 +30,8 @@ public class Hobbyist extends Person {
     public Hobbyist() {
     }
 
-    public Hobbyist(@NotBlank String firstName, @NotBlank String lastName) {
-        super(firstName, lastName);
+    public Hobbyist(@NotBlank String firstName, @NotBlank String lastName, Long userId) {
+        super(firstName, lastName, userId);
     }
 
     //Getters and Setters

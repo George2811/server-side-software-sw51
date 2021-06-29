@@ -4,6 +4,7 @@ public class HobbyistResource {
     private Long id;
     private String firstName;
     private String lastName;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -29,6 +30,15 @@ public class HobbyistResource {
 
     public HobbyistResource setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public HobbyistResource setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
 }

@@ -34,6 +34,9 @@ public class SaveArtistResource {
 
     private Specialty specialty;
 
+    @NotNull
+    private Long userId;
+
     public String getFirstName() {
         return firstName;
     }
@@ -85,6 +88,15 @@ public class SaveArtistResource {
 
     public SaveArtistResource setSpecialty(Specialty specialty) {
         this.specialty = specialty;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public SaveArtistResource setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
 }
