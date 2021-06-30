@@ -19,6 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class HobbyistClaimTicketsController {
 
     //@Autowired

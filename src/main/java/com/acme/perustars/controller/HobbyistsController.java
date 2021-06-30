@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class HobbyistsController {
     @Autowired
     private ModelMapper mapper;
