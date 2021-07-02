@@ -175,7 +175,7 @@ public class EventsController {
         return mapper.map(resource, Event.class);
     }
 
-    private EventResource convertToResource(Event hobbyist) {
-        return mapper.map(hobbyist, EventResource.class);
+    private EventResource convertToResource(Event event) {
+        return mapper.map(event, EventResource.class).setArtistId(event.getArtist().getId());
     }
 }

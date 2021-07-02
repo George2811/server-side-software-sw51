@@ -41,7 +41,9 @@ public class ArtworksController {
         Page<Artwork> artworkPage = artworkService.getAllArtworks(pageable);
         List<ArtworkResource> resources = artworkPage.getContent()
                 .stream()
-                .map(this::convertToResource)
+                .map(artwork -> {
+                    return convertToResource(artwork).setArtistId(artwork.getArtist().getId());
+                })
                 .collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
@@ -56,7 +58,9 @@ public class ArtworksController {
         Page<Artwork> artworkPage = artworkService.getAllArtworksByArtistId(artistId, pageable);
         List<ArtworkResource> resources = artworkPage.getContent()
                 .stream()
-                .map(this::convertToResource)
+                .map(artwork -> {
+                    return convertToResource(artwork).setArtistId(artwork.getArtist().getId());
+                })
                 .collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
@@ -80,7 +84,7 @@ public class ArtworksController {
     public ArtworkResource createArtwork(@PathVariable Long artistId,
                                          @Valid @RequestBody SaveArtworkResource resource) {
         Artwork artwork = convertToEntity(resource);
-        return convertToResource(artworkService.createArtwork(artistId, artwork));
+        return convertToResource(artworkService.createArtwork(artistId, artwork)).setArtistId(artwork.getArtist().getId());
     }
 
     @Operation(summary = "Put Artwork", description = "Update an Artwork", tags = {"Artworks"})
@@ -92,7 +96,7 @@ public class ArtworksController {
     public ArtworkResource updateArtwork(@PathVariable Long artistId, @PathVariable Long artworkId,
                                          @RequestBody SaveArtworkResource resource) {
         Artwork artwork = convertToEntity(resource);
-        return convertToResource(artworkService.updateArtwork(artistId, artworkId, artwork));
+        return convertToResource(artworkService.updateArtwork(artistId, artworkId, artwork)).setArtistId(artwork.getArtist().getId());
     }
 
     @Operation(summary = "Delete Artwork", description = "Delete an Artwork", tags = {"Artworks"})
@@ -114,8 +118,10 @@ public class ArtworksController {
     public Page<ArtworkResource> getAllArtworksByTitle(@PathVariable String artworkTitle, Pageable pageable) {
         Page<Artwork> artworkPage = artworkService.getAllArtworksByTitle(artworkTitle, pageable);
         List<ArtworkResource> resources = artworkPage.getContent().
-                stream().map(this::convertToResource).
-                collect(Collectors.toList());
+                stream().map(artwork -> {
+                    return convertToResource(artwork).setArtistId(artwork.getArtist().getId());
+                })
+                .collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
@@ -128,8 +134,10 @@ public class ArtworksController {
     public Page<ArtworkResource> getAllArtworksByCost(@PathVariable double artworkCost, Pageable pageable) {
         Page<Artwork> artworkPage = artworkService.getAllArtworksByCost(artworkCost, pageable);
         List<ArtworkResource> resources = artworkPage.getContent().
-                stream().map(this::convertToResource).
-                collect(Collectors.toList());
+                stream().map(artwork -> {
+                    return convertToResource(artwork).setArtistId(artwork.getArtist().getId());
+                })
+                .collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
 

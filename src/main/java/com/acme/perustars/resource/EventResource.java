@@ -12,6 +12,7 @@ public class EventResource {
     private Calendar dateEnd;
     private double cost;
     private TypeOfEvent type;
+    private Long artistId;
 
     public Long getId() {
         return id;
@@ -73,6 +74,15 @@ public class EventResource {
 
     public EventResource setType(TypeOfEvent type) {
         this.type = type;
+        return this;
+    }
+
+    public Long getArtistId() {
+        return artistId;
+    }
+
+    public EventResource setArtistId(Long artistId) {
+        this.artistId = artistId;
         return this;
     }
 }

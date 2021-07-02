@@ -9,6 +9,7 @@ public class ArtworkResource {
     private String description;
     private double cost;
     private List<String> linkInfo;
+    private Long artistId;
 
     public Long getId() {
         return id;
@@ -52,6 +53,20 @@ public class ArtworkResource {
 
     public ArtworkResource setLinkInfo(String linkInfo) {
         this.linkInfo = Arrays.asList(linkInfo.split(","));
+        return this;
+    }
+
+    public ArtworkResource setLinkInfo(List<String> linkInfo) {
+        this.linkInfo = linkInfo;
+        return this;
+    }
+
+    public Long getArtistId() {
+        return artistId;
+    }
+
+    public ArtworkResource setArtistId(Long artistId) {
+        this.artistId = artistId;
         return this;
     }
 }
