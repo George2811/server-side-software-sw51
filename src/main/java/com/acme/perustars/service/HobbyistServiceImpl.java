@@ -36,7 +36,7 @@ public class HobbyistServiceImpl implements HobbyistService {
 
     @Override
     public Hobbyist getHobbyistByUserId(Long userId) {
-        return hobbyistRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Hobbyist",
+        return hobbyistRepository.findByUserId(userId).orElseThrow(() -> new ResourceNotFoundException("Hobbyist",
                 "UserId", userId));
     }
 

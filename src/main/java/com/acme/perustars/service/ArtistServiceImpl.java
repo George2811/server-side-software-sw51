@@ -38,7 +38,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Artist getArtistByUserId(Long userId) {
-        return artistRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Artist", "UserId",
+        return artistRepository.findByUserId(userId).orElseThrow(() -> new ResourceNotFoundException("Artist", "UserId",
                 userId));
     }
 
